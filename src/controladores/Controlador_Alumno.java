@@ -85,6 +85,18 @@ public class Controlador_Alumno {
         return datos;
     }
     
+    public Alumno Buscar(int IdAlumno)
+    {
+        for(int i = 0; i < Alumnos.length; i++)
+        {
+            if(Alumnos[i].getIdAlumno() == IdAlumno)
+            {
+                return Alumnos[i];
+            }
+        }
+        return null;
+    }
+    
     
     
     
