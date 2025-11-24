@@ -91,14 +91,14 @@ public class DirectorUI extends javax.swing.JFrame {
 
         jMenu7.setText("Clases");
 
-        jMenuItem4.setText("Registrar Clases");
+        jMenuItem4.setText("Gestionar");
         jMenu7.add(jMenuItem4);
 
         jMenuBar1.add(jMenu7);
 
         jMenu8.setText("Alumnnos");
 
-        vtnEliminarADirector.setText("Eliminar alumnos");
+        vtnEliminarADirector.setText("Gestionar");
         jMenu8.add(vtnEliminarADirector);
 
         jMenuBar1.add(jMenu8);

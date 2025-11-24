@@ -74,7 +74,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Registrar Clases"/>
+                <Property name="text" type="java.lang.String" value="Gestionar"/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -86,7 +86,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="vtnEliminarADirector">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Eliminar alumnos"/>
+                <Property name="text" type="java.lang.String" value="Gestionar"/>
               </Properties>
             </MenuItem>
           </SubComponents>

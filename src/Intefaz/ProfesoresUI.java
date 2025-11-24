@@ -46,12 +46,10 @@ public class ProfesoresUI extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         vtnClasesProfesores = new javax.swing.JMenuItem();
-        vtnReportarClase = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         vtnAsistenciasProfesor = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         vtnPagosProfesores = new javax.swing.JMenuItem();
-        vtnDatosProfesor = new javax.swing.JMenuItem();
 
         jMenuItem6.setText("jMenuItem6");
 
@@ -92,17 +90,19 @@ public class ProfesoresUI extends javax.swing.JFrame {
 
         jMenu2.setText("Clases");
 
-        vtnClasesProfesores.setText("ver/editar clases");
+        vtnClasesProfesores.setText("ver clases");
+        vtnClasesProfesores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vtnClasesProfesoresActionPerformed(evt);
+            }
+        });
         jMenu2.add(vtnClasesProfesores);
-
-        vtnReportarClase.setText("Reportar Clase");
-        jMenu2.add(vtnReportarClase);
 
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Asistencias");
 
-        vtnAsistenciasProfesor.setText("editar/ver asistencias");
+        vtnAsistenciasProfesor.setText("Anotar asistencias");
         jMenu3.add(vtnAsistenciasProfesor);
 
         jMenuBar1.add(jMenu3);
@@ -111,9 +111,6 @@ public class ProfesoresUI extends javax.swing.JFrame {
 
         vtnPagosProfesores.setText("Pagos");
         jMenu4.add(vtnPagosProfesores);
-
-        vtnDatosProfesor.setText("Actualizar mis datos");
-        jMenu4.add(vtnDatosProfesor);
 
         jMenuBar1.add(jMenu4);
 
@@ -132,6 +129,14 @@ public class ProfesoresUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void vtnClasesProfesoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vtnClasesProfesoresActionPerformed
+        // TODO add your handling code here:
+        GestionarClasesProfesor interfaz = new GestionarClasesProfesor(this);
+        
+        jDesktopPane1.add(interfaz);
+        interfaz.show();
+    }//GEN-LAST:event_vtnClasesProfesoresActionPerformed
 
     /**
      * @param args the command line arguments
@@ -168,7 +173,7 @@ public class ProfesoresUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDesktopPane1;
+    public static javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -177,8 +182,6 @@ public class ProfesoresUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenuItem vtnAsistenciasProfesor;
     private javax.swing.JMenuItem vtnClasesProfesores;
-    private javax.swing.JMenuItem vtnDatosProfesor;
     private javax.swing.JMenuItem vtnPagosProfesores;
-    private javax.swing.JMenuItem vtnReportarClase;
     // End of variables declaration//GEN-END:variables
 }

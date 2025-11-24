@@ -8,12 +8,12 @@ package Intefaz;
  *
  * @author junom
  */
-public class ReservarClases extends javax.swing.JInternalFrame {
+public class ReservarClasesAlumno extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form ReservarClases
      */
-    public ReservarClases() {
+    public ReservarClasesAlumno() {
         initComponents();
     }
 

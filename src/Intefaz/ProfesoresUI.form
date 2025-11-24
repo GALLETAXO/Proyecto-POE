@@ -22,13 +22,11 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="vtnClasesProfesores">
               <Properties>
-                <Property name="text" type="java.lang.String" value="ver/editar clases"/>
+                <Property name="text" type="java.lang.String" value="ver clases"/>
               </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="vtnReportarClase">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Reportar Clase"/>
-              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="vtnClasesProfesoresActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -39,7 +37,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="vtnAsistenciasProfesor">
               <Properties>
-                <Property name="text" type="java.lang.String" value="editar/ver asistencias"/>
+                <Property name="text" type="java.lang.String" value="Anotar asistencias"/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -52,11 +50,6 @@
             <MenuItem class="javax.swing.JMenuItem" name="vtnPagosProfesores">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pagos"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="vtnDatosProfesor">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Actualizar mis datos"/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -126,6 +119,9 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
 
           <Layout>
             <DimensionLayout dim="0">
