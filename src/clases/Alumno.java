@@ -8,29 +8,11 @@ package clases;
  *
  * @author Gael
  */
-public class Alumno {
+public class Alumno  extends Usuario{
     
-    private int IdAlumno;
-    private String Nombre;
     private int Edad;
     private String PlanInscrito;
     private Double SaldoPendiente;
-
-    public int getIdAlumno() {
-        return IdAlumno;
-    }
-
-    public void setIdAlumno(int IdAlumno) {
-        this.IdAlumno = IdAlumno;
-    }
-
-    public String getNombre() {
-        return Nombre;
-    }
-
-    public void setNombre(String Nombre) {
-        this.Nombre = Nombre;
-    }
 
     public int getEdad() {
         return Edad;
@@ -57,22 +39,17 @@ public class Alumno {
     }
 
     public Alumno() {
-        this.IdAlumno = -1;
-        this.Nombre = "N/A";
+        super();
         this.Edad = -1;
         this.PlanInscrito = "N/A";
         this.SaldoPendiente = -1D;
     }
 
-    public Alumno(int IdAlumno, String Nombre, int Edad, String PlanInscrito, Double SaldoPendiente) {
-        this.IdAlumno = IdAlumno;
-        this.Nombre = Nombre;
+    public Alumno(int Edad, String PlanInscrito, Double SaldoPendiente, int Id, String Nombre, String Contraseña) {
+        super(Id, Nombre, Contraseña, "Alumno");
         this.Edad = Edad;
         this.PlanInscrito = PlanInscrito;
         this.SaldoPendiente = SaldoPendiente;
     }
-    
-    
-    
-    
+
 }

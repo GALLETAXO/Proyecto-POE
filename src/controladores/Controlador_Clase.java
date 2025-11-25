@@ -72,7 +72,7 @@ public class Controlador_Clase {
     
     public Object[][] Mostrar()
     {
-        Object[][] datos = new Object[Clases.length][8];
+        Object[][] datos = new Object[Clases.length][5];
         for(int i = 0; i < Clases.length; i ++)
         {
             datos[i][0] = Clases[i].getIdClase();
@@ -83,6 +83,7 @@ public class Controlador_Clase {
         } 
         return datos;
     }
+    
     
     public Clase Buscar(int IdClase)
     {

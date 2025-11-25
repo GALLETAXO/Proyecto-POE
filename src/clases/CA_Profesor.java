@@ -8,17 +8,17 @@ package clases;
  *
  * @author Gael
  */
-public class CA_Alumno {
-    private int IdAlumno;
+public class CA_Profesor {
+    private int IdProfesor;
     private int IdClase;
     private int Asistencia;
 
-    public int getIdAlumno() {
-        return IdAlumno;
+    public int getIdProfesor() {
+        return IdProfesor;
     }
 
-    public void setIdAlumno(int IdAlumno) {
-        this.IdAlumno = IdAlumno;
+    public void setIdProfesor(int IdProfesor) {
+        this.IdProfesor = IdProfesor;
     }
 
     public int getIdClase() {
@@ -37,14 +37,14 @@ public class CA_Alumno {
         this.Asistencia = Asistencia;
     }
 
-    public CA_Alumno() {
-        this.IdAlumno = -1;
+    public CA_Profesor() {
+        this.IdProfesor = -1;
         this.IdClase = -1;
         this.Asistencia = -1;
     }
 
-    public CA_Alumno(int IdAlumno, int IdClase, int Asistencia) {
-        this.IdAlumno = IdAlumno;
+    public CA_Profesor(int IdProfesor, int IdClase, int Asistencia) {
+        this.IdProfesor = IdProfesor;
         this.IdClase = IdClase;
         this.Asistencia = Asistencia;
     }

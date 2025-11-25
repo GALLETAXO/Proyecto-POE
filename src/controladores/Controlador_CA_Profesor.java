@@ -10,7 +10,7 @@ import clases.CA_Alumno;
  *
  * @author Gael
  */
-public class Controlador_CA_Alumno {
+public class Controlador_CA_Profesor {
     
     public CA_Alumno Asignaciones[];
 
@@ -22,11 +22,11 @@ public class Controlador_CA_Alumno {
         this.Asignaciones = Asignaciones;
     }
 
-    public Controlador_CA_Alumno() {
+    public Controlador_CA_Profesor() {
         this.Asignaciones = new CA_Alumno[100];
     }
 
-    public Controlador_CA_Alumno(CA_Alumno[] Asignaciones) {
+    public Controlador_CA_Profesor(CA_Alumno[] Asignaciones) {
         this.Asignaciones = Asignaciones;
     }
     

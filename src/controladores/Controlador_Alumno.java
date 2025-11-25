@@ -31,13 +31,13 @@ public class Controlador_Alumno {
     }
     
     
-    public boolean Agregar(int IdAlumno, String Nombre, int Edad, String PlanInscrito, Double SaldoPendiente)
+    public boolean Agregar(int Edad, String PlanInscrito, Double SaldoPendiente, int Id, String Nombre, String Contraseña)
     {
         for(int i = 0; i < Alumnos.length; i++)
         {
             if(Alumnos[i] == null)
             {
-                Alumnos[i] = new Alumno(IdAlumno, Nombre, Edad, PlanInscrito, SaldoPendiente);
+                Alumnos[i] = new Alumno(Edad, PlanInscrito, SaldoPendiente, Id, Nombre, Contraseña);
                 return true;
             }
         }
@@ -45,24 +45,24 @@ public class Controlador_Alumno {
         return false;   
     }
     
-    public boolean Actualizar(int IdAlumno, String Nombre, int Edad, String PlanInscrito, Double SaldoPendiente)
+    public boolean Actualizar(int Edad, String PlanInscrito, Double SaldoPendiente, int Id, String Nombre, String Contraseña)
     {
         for(int i = 0; i < Alumnos.length; i++)
         {
-            if(Alumnos[i].getIdAlumno() == IdAlumno)
+            if(Alumnos[i].getId() == Id)
             {
-                Alumnos[i] = new Alumno(IdAlumno, Nombre, Edad, PlanInscrito, SaldoPendiente);
+                Alumnos[i] = new Alumno(Edad, PlanInscrito, SaldoPendiente, Id, Nombre, Contraseña);
                 return true;
             }
         }
         return false;
     }
     
-    public Boolean Eliminar(int IdAlumno)
+    public Boolean Eliminar(int Id)
     {
         for(int i = 0; i < Alumnos.length; i++)
         {
-            if(Alumnos[i].getIdAlumno() == IdAlumno)
+            if(Alumnos[i].getId() == Id)
             {
                 Alumnos[i] = null;
                 return true;
@@ -73,10 +73,10 @@ public class Controlador_Alumno {
     
     public Object[][] Mostrar()
     {
-        Object[][] datos = new Object[Alumnos.length][8];
+        Object[][] datos = new Object[Alumnos.length][5];
         for(int i = 0; i < Alumnos.length; i ++)
         {
-            datos[i][0] = Alumnos[i].getIdAlumno();
+            datos[i][0] = Alumnos[i].getId();
             datos[i][1] = Alumnos[i].getNombre();
             datos[i][2] = Alumnos[i].getEdad();
             datos[i][3] = Alumnos[i].getPlanInscrito();
@@ -85,23 +85,15 @@ public class Controlador_Alumno {
         return datos;
     }
     
-    public Alumno Buscar(int IdAlumno)
+    public Alumno Buscar(int Id)
     {
         for(int i = 0; i < Alumnos.length; i++)
         {
-            if(Alumnos[i].getIdAlumno() == IdAlumno)
+            if(Alumnos[i].getId() == Id)
             {
                 return Alumnos[i];
             }
         }
         return null;
-    }
-    
-    
-    
-    
-    
-    
-    
-    
+    } 
 }
