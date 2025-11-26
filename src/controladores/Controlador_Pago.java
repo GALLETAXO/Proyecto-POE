@@ -57,6 +57,19 @@ public class Controlador_Pago {
         return false;
     }
     
+    public boolean ActualizarEstado(int IdPago, String Estado)
+    {
+        for(int i = 0; i < Pagos.length; i++)
+        {
+            if(Pagos[i].getIdPago() == IdPago)
+            {
+                Pagos[i].setEstado(Estado);
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public Boolean Eliminar(int IdPago)
     {
         for(int i = 0; i < Pagos.length; i++)

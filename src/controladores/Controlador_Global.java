@@ -5,6 +5,7 @@
 package controladores;
 
 import clases.Clase;
+import clases.Pago;
 import clases.Usuario;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -111,8 +112,9 @@ public class Controlador_Global {
         this.P = P;
         this.US = UsuarioSesion;
     }
-    
-   // Metodos Alumno
+   //
+   // **Metodos Alumno**
+   //
    public boolean ReservarClase(int IdClase)
    {
        return CA_A.Agregar(IdClase, US.getId(), 0);
@@ -150,7 +152,9 @@ public class Controlador_Global {
        
    }
    
-   //Metodos de clase
+   //
+   // **Metodos de clase**
+   //
    
    public boolean ActualizarDatos(int Edad, String PlanInscrito, Double SaldoPendiente, String Nombre, String Contraseña)
    {
@@ -203,7 +207,9 @@ public class Controlador_Global {
        return C.Buscar(IdClase);
    }
    
-   // Profesor
+   //
+   // **Metodos de Profesor**
+   //
    
    public boolean MarcarAsistencia(int idAlumno, int idClase)
    {
@@ -234,6 +240,76 @@ public class Controlador_Global {
         } 
         return datos;
    }
+   
+   public boolean ActualizarDatos(String Especialidad, double SueldoPorClase, int TotalClasesImpartidas, String Nombre, String Contraseña)
+   {
+       return P.Actualizar(Especialidad, SueldoPorClase, TotalClasesImpartidas, US.getId(), Nombre, Contraseña);
+   }
+   
+   //public boolean CalcularPagoTotal()
+   
+   //public boolean ReportarClase()
+   
+   //
+   //**Metodos de Pago**
+   //
+   
+   public boolean RegistrarPago(int IdPago, int IdAlumno, double Monto, String Estado)
+   {
+       LocalDateTime fecha = LocalDateTime.now();
+       DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+       String FechaEnFormato = fecha.format(formato);
+       return Pg.Agregar(IdPago, IdAlumno, Monto, FechaEnFormato, Estado);
+   }
+   
+   //public boolean ValidarPago()
+   
+   public Pago MostrarDetalles(int IdPago)
+   {
+       return Pg.Buscar(IdPago);
+   }
+   
+   public boolean ActualizarEstado(int IdPago, String Estado)
+   {
+       return Pg.ActualizarEstado(IdPago, Estado);
+   }
+   
+   public String GerenerarRecibo(int IdPago)
+   {
+       for(int i = 0; i < Pg.Pagos.length; i++)
+        {
+            if(Pg.Pagos[i].getIdPago() == IdPago)
+            {
+                return "Recibo de pago \n " +
+                       "Fecha: " + Pg.Pagos[i].getFecha() + "\n" +
+                       "Id del Alumno: " + Pg.Pagos[i].getIdAlumno() + "\n" + 
+                       "Nombre del Alumno: " + A.Buscar(Pg.Pagos[i].getIdAlumno()).getNombre() + "\n" +
+                       "Momto pagado: " + Pg.Pagos[i].getMonto()+ "\n";
+            }
+        }
+        return null;
+   }
+   
+   //
+   // **Metodos de Director**
+   //
+   
+   //public boolean GestionarPagos()
+   
+   //public boolean SupervisarProfesor()
+   
+   //public boolean VerReporteGerenal()
+   
+   public boolean RegistrarClase(int IdClase, String NombreClase, String Nivel, String Horario, int CupoMaximo)
+   {
+        return C.Agregar(IdClase, NombreClase, Nivel, Horario, CupoMaximo);
+   }
+   
+   public boolean EliminarAlumno(int IdAlumno)
+   {
+       return A.Eliminar(IdAlumno);
+   }
+   
    
    
    
