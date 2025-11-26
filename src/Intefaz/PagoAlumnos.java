@@ -4,17 +4,29 @@
  */
 package Intefaz;
 
+import controladores.Controlador_Global;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author junom
  */
 public class PagoAlumnos extends javax.swing.JInternalFrame {
 
+    private Controlador_Global CG;
+
     /**
      * Creates new form PagoAlumnos
      */
     public PagoAlumnos() {
         initComponents();
+        
+    }
+    public PagoAlumnos(Controlador_Global CG) {
+        this.CG = CG;
+        initComponents();
+        cargarTabla();
     }
 
     /**
@@ -67,6 +79,11 @@ public class PagoAlumnos extends javax.swing.JInternalFrame {
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Pagar");
         jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(255, 204, 204));
 
@@ -128,6 +145,26 @@ public class PagoAlumnos extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int fila = jTable1.getSelectedRow();
+    if(fila == -1){
+        JOptionPane.showMessageDialog(this, "Selecciona una clase para pagar");
+        return;
+    }
+    
+    int idClase = (int) jTable1.getValueAt(fila, 0);
+    double monto = (double) jTable1.getValueAt(fila, 4);
+    
+    boolean exito = CG.RealizarPago(monto); // este método ya registra el pago del alumno
+    if(exito){
+        JOptionPane.showMessageDialog(this, "Pago realizado con éxito");
+        cargarTabla(); // refresca la tabla
+    } else {
+        JOptionPane.showMessageDialog(this, "Error al realizar el pago");
+    }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -138,4 +175,11 @@ public class PagoAlumnos extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarTabla() {
+        Object[][] clases = CG.verHistorialAsistencias(); // aquí filtras las que el alumno necesita pagar
+        String[] columnas = {"ID Clase", "Nombre", "Nivel", "Horario", "Monto"};
+        DefaultTableModel modelo = new DefaultTableModel(clases, columnas);
+        jTable1.setModel(modelo);
+    }
 }

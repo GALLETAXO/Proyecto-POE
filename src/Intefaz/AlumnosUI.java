@@ -13,6 +13,7 @@ import controladores.Controlador_Global;
 public class AlumnosUI extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AlumnosUI.class.getName());
+    private Controlador_Global GC;
 
     /**
      * Creates new form AlumnosUI
@@ -22,6 +23,7 @@ public class AlumnosUI extends javax.swing.JFrame {
     }
     public AlumnosUI(Controlador_Global GC) {
         initComponents();
+        GC = GC;
     }
 
     /**
@@ -38,7 +40,7 @@ public class AlumnosUI extends javax.swing.JFrame {
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         vtnReservarAlumnos = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jmiReservar = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         vtnRealiarPagoAlumnos = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
@@ -67,19 +69,24 @@ public class AlumnosUI extends javax.swing.JFrame {
 
         vtnReservarAlumnos.setText("Clases");
 
-        jMenuItem2.setText("Reservar");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jmiReservar.setText("Reservar");
+        jmiReservar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jmiReservarActionPerformed(evt);
             }
         });
-        vtnReservarAlumnos.add(jMenuItem2);
+        vtnReservarAlumnos.add(jmiReservar);
 
         jMenuBar1.add(vtnReservarAlumnos);
 
         jMenu3.setText("Adeudos");
 
         vtnRealiarPagoAlumnos.setText("Realizar pago");
+        vtnRealiarPagoAlumnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vtnRealiarPagoAlumnosActionPerformed(evt);
+            }
+        });
         jMenu3.add(vtnRealiarPagoAlumnos);
 
         jMenuBar1.add(jMenu3);
@@ -87,6 +94,11 @@ public class AlumnosUI extends javax.swing.JFrame {
         jMenu4.setText("Asistencias");
 
         vtnHistorialAlumnos.setText("Historial");
+        vtnHistorialAlumnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vtnHistorialAlumnosActionPerformed(evt);
+            }
+        });
         jMenu4.add(vtnHistorialAlumnos);
 
         jMenuBar1.add(jMenu4);
@@ -94,6 +106,11 @@ public class AlumnosUI extends javax.swing.JFrame {
         jMenu5.setText("Yo");
 
         vtnActualizarAlumnos.setText("Actualizar mis datos");
+        vtnActualizarAlumnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vtnActualizarAlumnosActionPerformed(evt);
+            }
+        });
         jMenu5.add(vtnActualizarAlumnos);
 
         jMenuBar1.add(jMenu5);
@@ -119,9 +136,38 @@ public class AlumnosUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jmiReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiReservarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+        
+        ReservarClasesAlumno ventanaReservarClaseAlumno = new ReservarClasesAlumno();
+        jDesktopPane1.add(ventanaReservarClaseAlumno);
+        ventanaReservarClaseAlumno.show();
+    }//GEN-LAST:event_jmiReservarActionPerformed
+
+    private void vtnRealiarPagoAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vtnRealiarPagoAlumnosActionPerformed
+        // TODO add your handling code here:
+        PagoAlumnos  ventanaPagoAlumno = new PagoAlumnos(GC);
+        jDesktopPane1.add(ventanaPagoAlumno);
+        ventanaPagoAlumno.show();
+        
+    }//GEN-LAST:event_vtnRealiarPagoAlumnosActionPerformed
+
+    private void vtnHistorialAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vtnHistorialAlumnosActionPerformed
+        // TODO add your handling code here:
+        HistorialAsistencias  Historial = new HistorialAsistencias(GC);
+        jDesktopPane1.add(Historial);
+        Historial.show();
+        
+    
+    }//GEN-LAST:event_vtnHistorialAlumnosActionPerformed
+
+    private void vtnActualizarAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vtnActualizarAlumnosActionPerformed
+        // TODO add your handling code here:
+        ActualizarDatosAlumno  ActualizarAlumno = new ActualizarDatosAlumno();
+        jDesktopPane1.add(ActualizarAlumno);
+        ActualizarAlumno.show();
+       
+    }//GEN-LAST:event_vtnActualizarAlumnosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -156,7 +202,7 @@ public class AlumnosUI extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jmiReservar;
     private javax.swing.JMenuItem vtnActualizarAlumnos;
     private javax.swing.JMenuItem vtnHistorialAlumnos;
     private javax.swing.JMenuItem vtnRealiarPagoAlumnos;

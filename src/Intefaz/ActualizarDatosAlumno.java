@@ -4,11 +4,15 @@
  */
 package Intefaz;
 
+import controladores.Controlador_Global;
+
 /**
  *
  * @author junom
  */
 public class ActualizarDatosAlumno extends javax.swing.JInternalFrame {
+
+    private Controlador_Global CG;
 
     /**
      * Creates new form ActualizarDatosAlumno
@@ -16,7 +20,11 @@ public class ActualizarDatosAlumno extends javax.swing.JInternalFrame {
     public ActualizarDatosAlumno() {
         initComponents();
     }
-
+    public ActualizarDatosAlumno(Controlador_Global CG) {
+    this.CG = CG;
+    initComponents();
+    cargarDatos();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,7 +46,7 @@ public class ActualizarDatosAlumno extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jSaldo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jbnActualizar = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -109,10 +117,15 @@ public class ActualizarDatosAlumno extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Segoe Script", 0, 14)); // NOI18N
         jLabel2.setText("Actualizar mis datos");
 
-        jButton1.setBackground(new java.awt.Color(0, 0, 0));
-        jButton1.setFont(new java.awt.Font("SimSun", 0, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Actualizar");
+        jbnActualizar.setBackground(new java.awt.Color(0, 0, 0));
+        jbnActualizar.setFont(new java.awt.Font("SimSun", 0, 14)); // NOI18N
+        jbnActualizar.setForeground(new java.awt.Color(255, 255, 255));
+        jbnActualizar.setText("Actualizar");
+        jbnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbnActualizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -145,7 +158,7 @@ public class ActualizarDatosAlumno extends javax.swing.JInternalFrame {
                         .addGap(135, 135, 135))))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(173, 173, 173)
-                .addComponent(jButton1)
+                .addComponent(jbnActualizar)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -169,7 +182,7 @@ public class ActualizarDatosAlumno extends javax.swing.JInternalFrame {
                     .addComponent(jLabel6)
                     .addComponent(jSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jbnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -246,9 +259,29 @@ public class ActualizarDatosAlumno extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jPlanKeyTyped
 
+    private void jbnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbnActualizarActionPerformed
+        // TODO add your handling code here:
+        try {
+        String nombre = jNombre.getText().trim();
+        int edad = Integer.parseInt(jEdad.getText().trim());
+        String plan = jPlan.getText().trim();
+        double saldo = Double.parseDouble(jSaldo.getText().trim());
+
+        boolean exito = CG.ActualizarDatos(edad, plan, saldo, nombre, CG.getUsuarioSesion().getContraseña());
+
+        if(exito) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Datos actualizados correctamente");
+            cargarDatos(); // actualizar los campos con los nuevos datos
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "No se pudo actualizar");
+        }
+    } catch (NumberFormatException e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Edad y saldo deben ser números válidos");
+    }
+    }//GEN-LAST:event_jbnActualizarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JTextField jEdad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -261,5 +294,21 @@ public class ActualizarDatosAlumno extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jPlan;
     private javax.swing.JTextField jSaldo;
+    private javax.swing.JButton jbnActualizar;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarDatos() {
+        // Obtener alumno actual
+    String nombre = CG.getUsuarioSesion().getNombre();
+    int edad = CG.getA().Buscar(CG.getUsuarioSesion().getId()).getEdad();
+    String plan = CG.getA().Buscar(CG.getUsuarioSesion().getId()).getPlanInscrito();
+    double saldo = CG.getA().Buscar(CG.getUsuarioSesion().getId()).getSaldoPendiente();
+
+    // Rellenar campos
+    jNombre.setText(nombre);
+    jEdad.setText(String.valueOf(edad));
+    jPlan.setText(plan);
+    jSaldo.setText(String.valueOf(saldo));
+            
+    }
 }

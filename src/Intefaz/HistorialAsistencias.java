@@ -4,11 +4,16 @@
  */
 package Intefaz;
 
+import controladores.Controlador_Global;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author junom
  */
 public class HistorialAsistencias extends javax.swing.JInternalFrame {
+
+    private Controlador_Global CG;
 
     /**
      * Creates new form Asistencias
@@ -16,7 +21,12 @@ public class HistorialAsistencias extends javax.swing.JInternalFrame {
     public HistorialAsistencias() {
         initComponents();
     }
-
+    
+    public HistorialAsistencias(Controlador_Global CG) {
+    this.CG = CG;
+    initComponents();
+    cargarTabla();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -117,4 +127,19 @@ public class HistorialAsistencias extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarTabla() {
+        Object[][] datos = CG.verHistorialAsistencias();
+
+        String[] columnas = {"ID Clase", "Nombre Clase", "Nivel", "Horario", "Asistencias"};
+
+        DefaultTableModel modelo = new DefaultTableModel(datos, columnas) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; 
+            }
+        };
+
+        jTable1.setModel(modelo);
+    }
 }

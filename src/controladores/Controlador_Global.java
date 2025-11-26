@@ -119,10 +119,7 @@ public class Controlador_Global {
     public Controlador_Usuario getU() { return U; }
     public void setU(Controlador_Usuario U) { this.U = U; }
     public Usuario BuscarUsuario(int id) {
-        for (Usuario u : Usuarios) {
-            if (u != null && u.getId() == id) return u;
-        }
-        return null;
+        return U.Buscar(id);
     }
     
     

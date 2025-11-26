@@ -4,6 +4,8 @@
  */
 package Intefaz;
 
+import controladores.Controlador_Global;
+
 /**
  *
  * @author junom
@@ -14,6 +16,9 @@ public class ReservarClasesAlumno extends javax.swing.JInternalFrame {
      * Creates new form ReservarClases
      */
     public ReservarClasesAlumno() {
+        initComponents();
+    }
+    public ReservarClasesAlumno(Controlador_Global GC) {
         initComponents();
     }
 
