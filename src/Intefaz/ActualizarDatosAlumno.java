@@ -65,17 +65,46 @@ public class ActualizarDatosAlumno extends javax.swing.JInternalFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
+        jNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jNombreActionPerformed(evt);
+            }
+        });
+        jNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jNombreKeyTyped(evt);
+            }
+        });
+
         jLabel3.setFont(new java.awt.Font("Segoe Print", 0, 12)); // NOI18N
         jLabel3.setText("Nombre:");
 
         jLabel4.setFont(new java.awt.Font("Segoe Print", 0, 12)); // NOI18N
         jLabel4.setText("Edad:");
 
+        jEdad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jEdadKeyTyped(evt);
+            }
+        });
+
+        jPlan.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jPlanKeyTyped(evt);
+            }
+        });
+
         jLabel5.setFont(new java.awt.Font("Segoe Print", 0, 12)); // NOI18N
         jLabel5.setText("Plan:");
 
         jLabel6.setFont(new java.awt.Font("Segoe Print", 0, 12)); // NOI18N
         jLabel6.setText("Saldo:");
+
+        jSaldo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jSaldoKeyTyped(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe Script", 0, 14)); // NOI18N
         jLabel2.setText("Actualizar mis datos");
@@ -168,6 +197,54 @@ public class ActualizarDatosAlumno extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jNombreActionPerformed
+
+    private void jNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jNombreKeyTyped
+        // TODO add your handling code here:
+        char letra = evt.getKeyChar();
+        
+        if(jNombre.getText().length() > 20){
+            evt.consume();
+        }else if(!Character.isLetter(letra)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jNombreKeyTyped
+
+    private void jEdadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jEdadKeyTyped
+        // TODO add your handling code here:
+        char numero = evt.getKeyChar();
+
+        if(jEdad.getText().length() > 3){
+            evt.consume();
+        }else if(!Character.isDigit(numero)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jEdadKeyTyped
+
+    private void jSaldoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jSaldoKeyTyped
+        // TODO add your handling code here:
+        char numero = evt.getKeyChar();
+
+        if(jSaldo.getText().length() > 3){
+            evt.consume();
+        }else if(!Character.isDigit(numero)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jSaldoKeyTyped
+
+    private void jPlanKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPlanKeyTyped
+        // TODO add your handling code here:
+        char letra = evt.getKeyChar();
+        
+        if(jPlan.getText().length() > 20){
+            evt.consume();
+        }else if(!Character.isLetter(letra)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jPlanKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

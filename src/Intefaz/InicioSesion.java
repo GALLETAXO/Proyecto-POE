@@ -4,11 +4,13 @@
  */
 package Intefaz;
 
+import clases.Usuario;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
+import controladores.Controlador_Global;
 /**
  *
  * @author junom
@@ -52,6 +54,7 @@ public class InicioSesion extends javax.swing.JFrame {
         contrasena = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jbnIngresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,27 +74,35 @@ public class InicioSesion extends javax.swing.JFrame {
         contrasena.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
 
         jLabel2.setFont(new java.awt.Font("Serif", 1, 12)); // NOI18N
-        jLabel2.setText("Tu nombre:");
+        jLabel2.setText("Tu id:");
 
         jLabel3.setFont(new java.awt.Font("Serif", 1, 12)); // NOI18N
         jLabel3.setText("Tu contrasena:");
+
+        jbnIngresar.setText("Ingresar");
+        jbnIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbnIngresarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(183, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(nombreUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                            .addComponent(contrasena))
-                        .addGap(12, 12, 12))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28))
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
+                .addGap(40, 40, 40))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbnIngresar)
+                    .addComponent(contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2)
+                    .addComponent(nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,7 +117,9 @@ public class InicioSesion extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addComponent(jbnIngresar)
+                .addGap(31, 31, 31))
         );
 
         pack();
@@ -115,6 +128,63 @@ public class InicioSesion extends javax.swing.JFrame {
     private void nombreUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nombreUsuarioActionPerformed
+
+    private void jbnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbnIngresarActionPerformed
+        // TODO add your handling code here:
+        try {
+        int id = Integer.parseInt(nombreUsuario.getText());
+        String pass = contrasena.getText();
+
+        // Crear el controlador global
+        Controlador_Global CG = new Controlador_Global();
+
+        // Buscar usuario
+        Usuario encontrado = CG.BuscarUsuario(id); 
+
+        if (encontrado == null) {
+            JOptionPane.showMessageDialog(this, "Usuario no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Validar contraseña
+        if (!encontrado.getContraseña().equals(pass)) {
+            JOptionPane.showMessageDialog(this, "Contraseña incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Guardar sesión
+        CG.setUsuarioSesion(encontrado);
+
+        JOptionPane.showMessageDialog(this, 
+                "Bienvenido " + encontrado.getNombre() + "\nRol: " + encontrado.getTipo(),
+                "Inicio de sesión exitoso", 
+                JOptionPane.INFORMATION_MESSAGE);
+
+        // Redirigir según tipo de usuario
+        switch (encontrado.getTipo().toLowerCase()) {
+            case "alumno":
+                new AlumnosUI(CG).setVisible(true);
+                break;
+
+            case "profesor":
+                new ProfesoresUI(CG).setVisible(true);
+                break;
+
+            case "director":
+                new DirectorUI(CG).setVisible(true);
+                break;
+
+            default:
+                JOptionPane.showMessageDialog(this, "Tipo de usuario desconocido");
+                return;
+        }
+
+        this.dispose();
+
+    } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(this, "El ID debe ser un número");
+    }
+    }//GEN-LAST:event_jbnIngresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,6 +216,7 @@ public class InicioSesion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton jbnIngresar;
     private javax.swing.JTextField nombreUsuario;
     // End of variables declaration//GEN-END:variables
 }

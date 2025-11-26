@@ -8,6 +8,9 @@ package Intefaz;
  *
  * @author junom
  */
+
+import controladores.Controlador_Global;
+
 public class DirectorUI extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DirectorUI.class.getName());
@@ -16,6 +19,9 @@ public class DirectorUI extends javax.swing.JFrame {
      * Creates new form DirectorUI
      */
     public DirectorUI() {
+        initComponents();
+    }
+    public DirectorUI(Controlador_Global GC) {
         initComponents();
     }
 

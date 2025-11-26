@@ -6,7 +6,7 @@ package Intefaz;
 
 import java.awt.Color;
 import javax.swing.UIManager;
-
+import controladores.Controlador_Global;
 /**
  *
  * @author junom
@@ -29,6 +29,16 @@ public class ProfesoresUI extends javax.swing.JFrame {
         jMenu3.setForeground(Color.WHITE);
         jMenu4.setForeground(Color.WHITE);
 
+    }
+    public ProfesoresUI(Controlador_Global GC) {
+        initComponents();
+        jMenuBar1.setOpaque(true);
+        jMenuBar1.setBackground(Color.BLACK);
+        jMenuBar1.setForeground(Color.WHITE);
+
+        jMenu2.setForeground(Color.WHITE);
+        jMenu3.setForeground(Color.WHITE);
+        jMenu4.setForeground(Color.WHITE);
     }
 
     /**

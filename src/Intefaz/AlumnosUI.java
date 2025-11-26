@@ -8,6 +8,8 @@ package Intefaz;
  *
  * @author junom
  */
+import controladores.Controlador_Global;
+
 public class AlumnosUI extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AlumnosUI.class.getName());
@@ -16,6 +18,9 @@ public class AlumnosUI extends javax.swing.JFrame {
      * Creates new form AlumnosUI
      */
     public AlumnosUI() {
+        initComponents();
+    }
+    public AlumnosUI(Controlador_Global GC) {
         initComponents();
     }
 
