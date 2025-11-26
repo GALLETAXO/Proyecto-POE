@@ -4,6 +4,7 @@
  */
 package controladores;
 
+import clases.Clase;
 import clases.Usuario;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,7 +19,7 @@ public class Controlador_Global {
     
     public Usuario US;
     public Controlador_Alumno A;
-    public Controlador_CA_Alumno CA_A;
+    public Controlador_CA_Alumno CA_A; //CA significa Clase asignada
     public Controlador_CA_Profesor CA_P;
     public Controlador_Clase C;
     public Controlador_Director D;
@@ -138,10 +139,10 @@ public class Controlador_Global {
             if(CA_A.Asignaciones[i].getIdAlumno() == US.getId())
             {
                 datos[i][0] = CA_A.Asignaciones[i].getIdClase();
-                datos[i][2] = C.Buscar(CA_A.Asignaciones[i].getIdClase()).getNombreClase();
-                datos[i][3] = C.Buscar(CA_A.Asignaciones[i].getIdClase()).getNivel();
-                datos[i][4] = C.Buscar(CA_A.Asignaciones[i].getIdClase()).getHorario();
-                datos[i][1] = CA_A.Asignaciones[i].getAsistencia();
+                datos[i][1] = C.Buscar(CA_A.Asignaciones[i].getIdClase()).getNombreClase();
+                datos[i][2] = C.Buscar(CA_A.Asignaciones[i].getIdClase()).getNivel();
+                datos[i][3] = C.Buscar(CA_A.Asignaciones[i].getIdClase()).getHorario();
+                datos[i][4] = CA_A.Asignaciones[i].getAsistencia();
             }  
         } 
         
@@ -149,11 +150,96 @@ public class Controlador_Global {
        
    }
    
+   //Metodos de clase
+   
    public boolean ActualizarDatos(int Edad, String PlanInscrito, Double SaldoPendiente, String Nombre, String Contraseña)
    {
        return A.Actualizar(Edad, PlanInscrito, SaldoPendiente, US.getId(), Nombre, Contraseña);
    }
    
-  
-    
+   public boolean asignarProfesor(int IdProfesor, int idClase)
+   {
+       return CA_P.Agregar(IdProfesor, idClase, 0);
+   }
+   
+   public boolean AgregarAlumno(int IdAlumno, int idClase)
+   {
+        return CA_P.Agregar(IdAlumno, idClase, 0);
+   }
+     
+   public boolean RegistrarAsistencia(int idAlumno, int idClase)
+   {
+       for(int i = 0; i < CA_A.Asignaciones.length; i++)
+       {
+           if(CA_A.Asignaciones[i].getIdAlumno() == idAlumno && CA_A.Asignaciones[i].getIdClase() == idClase)
+           {
+               CA_A.Asignaciones[i].SumarAsistecia();
+               return true;
+           }
+       }
+       return false;
+   }
+   
+   public Object[][] ConsultarListaAlumnos(int IdClase)
+   {
+       Object[][] datos = new Object[CA_A.Asignaciones.length][5];
+        for(int i = 0; i < CA_A.Asignaciones.length; i ++)
+        {
+            if(CA_A.Asignaciones[i].getIdClase() == IdClase)
+            {
+                datos[i][0] = CA_A.Asignaciones[i].getIdClase();
+                datos[i][1] = A.Buscar(CA_A.Asignaciones[i].getIdAlumno()).getNombre();
+                datos[i][2] = A.Buscar(CA_A.Asignaciones[i].getIdAlumno()).getEdad();
+                datos[i][3] = A.Buscar(CA_A.Asignaciones[i].getIdAlumno()).getPlanInscrito();
+                datos[i][4] = CA_A.Asignaciones[i].getAsistencia();
+            }  
+        } 
+        
+        return datos;
+   }
+   
+   public Clase mostrarDetalles(int IdClase)
+   {
+       return C.Buscar(IdClase);
+   }
+   
+   // Profesor
+   
+   public boolean MarcarAsistencia(int idAlumno, int idClase)
+   {
+       for(int i = 0; i < CA_A.Asignaciones.length; i++)
+       {
+           if(CA_A.Asignaciones[i].getIdAlumno() == idAlumno && CA_A.Asignaciones[i].getIdClase() == idClase)
+           {
+               CA_A.Asignaciones[i].SumarAsistecia();
+               return true;
+           }
+       }
+       return false;
+   }
+   
+   public Object[][] ConsultarClasesAsignadas()
+   {
+       Object[][] datos = new Object[CA_A.Asignaciones.length][5];
+        for(int i = 0; i < CA_A.Asignaciones.length; i ++)
+        {
+            if(CA_P.Asignaciones[i].getIdProfesor()== US.getId())
+            {
+                datos[i][0] = CA_P.Asignaciones[i].getIdClase();
+                datos[i][1] = C.Buscar(CA_P.Asignaciones[i].getIdClase()).getNombreClase();
+                datos[i][2] = C.Buscar(CA_P.Asignaciones[i].getIdClase()).getNivel();
+                datos[i][3] = C.Buscar(CA_P.Asignaciones[i].getIdClase()).getHorario();
+                datos[i][4] = C.Buscar(CA_P.Asignaciones[i].getIdClase()).getCupoMaximo();
+            }  
+        } 
+        return datos;
+   }
+   
+   
+   
+   
+
+   
+   
+   
 }

@@ -4,7 +4,7 @@
  */
 package controladores;
 
-import clases.CA_Alumno;
+import clases.CA_Profesor;
 
 /**
  *
@@ -12,31 +12,31 @@ import clases.CA_Alumno;
  */
 public class Controlador_CA_Profesor {
     
-    public CA_Alumno Asignaciones[];
+    public CA_Profesor Asignaciones[];
 
-    public CA_Alumno[] getAsignaciones() {
+    public CA_Profesor[] getAsignaciones() {
         return Asignaciones;
     }
 
-    public void setAsignaciones(CA_Alumno[] Asignaciones) {
+    public void setAsignaciones(CA_Profesor[] Asignaciones) {
         this.Asignaciones = Asignaciones;
     }
 
     public Controlador_CA_Profesor() {
-        this.Asignaciones = new CA_Alumno[100];
+        this.Asignaciones = new CA_Profesor[100];
     }
 
-    public Controlador_CA_Profesor(CA_Alumno[] Asignaciones) {
+    public Controlador_CA_Profesor(CA_Profesor[] Asignaciones) {
         this.Asignaciones = Asignaciones;
     }
     
-    public boolean Agregar(int IdAlumno, int IdClase, int Asistencia)
+    public boolean Agregar(int IdProfesor, int IdClase, int Asistencia)
     {
         for(int i = 0; i < Asignaciones.length; i++)
         {
             if(Asignaciones[i] == null)
             {
-                Asignaciones[i] = new CA_Alumno(IdAlumno, IdClase, Asistencia);
+                Asignaciones[i] = new CA_Profesor(IdProfesor, IdClase, Asistencia);
                 return true;
             }
         }
@@ -44,11 +44,11 @@ public class Controlador_CA_Profesor {
         return false;   
     }
     
-    public boolean SumarAsistencia(int IdAlumno)
+    public boolean SumarAsistencia(int IdProfesor)
     {
         for(int i = 0; i < Asignaciones.length; i++)
         {
-            if(Asignaciones[i].getIdAlumno() == IdAlumno)
+            if(Asignaciones[i].getIdProfesor() == IdProfesor)
             {
                 Asignaciones[i].SumarAsistecia();
                 return true;
@@ -57,24 +57,24 @@ public class Controlador_CA_Profesor {
         return false;
     }
     
-    public boolean Actualizar(int IdAlumno, int IdClase, int Asistencia)
+    public boolean Actualizar(int IdProfesor, int IdClase, int Asistencia)
     {
         for(int i = 0; i < Asignaciones.length; i++)
         {
-            if(Asignaciones[i].getIdAlumno() == IdAlumno)
+            if(Asignaciones[i].getIdProfesor() == IdProfesor)
             {
-                Asignaciones[i] = new CA_Alumno(IdAlumno, IdClase, Asistencia);
+                Asignaciones[i] = new CA_Profesor(IdProfesor, IdClase, Asistencia);
                 return true;
             }
         }
         return false;
     }
     
-    public Boolean Eliminar(int IdAlumno)
+    public Boolean Eliminar(int IdProfesor)
     {
         for(int i = 0; i < Asignaciones.length; i++)
         {
-            if(Asignaciones[i].getIdAlumno() == IdAlumno)
+            if(Asignaciones[i].getIdProfesor() == IdProfesor)
             {
                 Asignaciones[i] = null;
                 return true;
@@ -88,18 +88,18 @@ public class Controlador_CA_Profesor {
         Object[][] datos = new Object[Asignaciones.length][3];
         for(int i = 0; i < Asignaciones.length; i ++)
         {
-            datos[i][0] = Asignaciones[i].getIdAlumno();
+            datos[i][0] = Asignaciones[i].getIdProfesor();
             datos[i][1] = Asignaciones[i].getIdClase();
             datos[i][2] = Asignaciones[i].getAsistencia();
         } 
         return datos;
     }
     
-    public CA_Alumno Buscar(int IdAlumno)
+    public CA_Profesor Buscar(int IdProfesor)
     {
         for(int i = 0; i < Asignaciones.length; i++)
         {
-            if(Asignaciones[i].getIdAlumno() == IdAlumno)
+            if(Asignaciones[i].getIdProfesor() == IdProfesor)
             {
                 return Asignaciones[i];
             }
