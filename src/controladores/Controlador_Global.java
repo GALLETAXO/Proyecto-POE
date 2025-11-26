@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  * @author Gael
  */
 public class Controlador_Global {
-    
+    public Usuario[] Usuarios;
     public Usuario US;
     public Controlador_Alumno A;
     public Controlador_CA_Alumno CA_A; //CA significa Clase asignada
@@ -26,6 +26,7 @@ public class Controlador_Global {
     public Controlador_Director D;
     public Controlador_Pago Pg;
     public Controlador_Profesor P;
+    public Controlador_Usuario U;
 
     public Usuario getUsuarioSesion() {
         return US;
@@ -100,6 +101,7 @@ public class Controlador_Global {
         this.D = new Controlador_Director();
         this.Pg = new Controlador_Pago();
         this.P = new Controlador_Profesor();
+        this.U = new Controlador_Usuario();
     }
 
     public Controlador_Global(Controlador_Alumno A, Controlador_CA_Alumno CA_A, Controlador_CA_Profesor CA_P, Controlador_Clase C, Controlador_Director D, Controlador_Pago Pg, Controlador_Profesor P, Usuario UsuarioSesion) {
@@ -112,6 +114,19 @@ public class Controlador_Global {
         this.P = P;
         this.US = UsuarioSesion;
     }
+   //
+  //Metodos usuario
+    public Controlador_Usuario getU() { return U; }
+    public void setU(Controlador_Usuario U) { this.U = U; }
+    public Usuario BuscarUsuario(int id) {
+        for (Usuario u : Usuarios) {
+            if (u != null && u.getId() == id) return u;
+        }
+        return null;
+    }
+    
+    
+    
    //
    // **Metodos Alumno**
    //

@@ -38,6 +38,14 @@ public class Usuario {
         this.Contraseña = Contraseña;
     }
 
+    public String getTipo() {
+        return Tipo;
+    }
+
+    public void setTipo(String Tipo) {
+        this.Tipo = Tipo;
+    }
+
     public Usuario() {
         this.Id = -1;
         this.Nombre = "N/A";
