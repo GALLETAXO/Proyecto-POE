@@ -13,7 +13,7 @@ import controladores.Controlador_Global;
 public class AlumnosUI extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AlumnosUI.class.getName());
-    private Controlador_Global GC;
+    public Controlador_Global GC;
 
     /**
      * Creates new form AlumnosUI
@@ -21,9 +21,9 @@ public class AlumnosUI extends javax.swing.JFrame {
     public AlumnosUI() {
         initComponents();
     }
-    public AlumnosUI(Controlador_Global GC) {
+    public AlumnosUI(Controlador_Global Gc) {
         initComponents();
-        GC = GC;
+        GC = Gc;
     }
 
     /**
@@ -163,7 +163,7 @@ public class AlumnosUI extends javax.swing.JFrame {
 
     private void vtnActualizarAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vtnActualizarAlumnosActionPerformed
         // TODO add your handling code here:
-        ActualizarDatosAlumno  ActualizarAlumno = new ActualizarDatosAlumno();
+        ActualizarDatosAlumno  ActualizarAlumno = new ActualizarDatosAlumno(GC);
         jDesktopPane1.add(ActualizarAlumno);
         ActualizarAlumno.show();
        

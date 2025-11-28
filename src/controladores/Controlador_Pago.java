@@ -30,13 +30,13 @@ public class Controlador_Pago {
         this.Pagos = Pagos;
     }
     
-    public boolean Agregar(int IdPago, int IdAlumno, double Monto, String Fecha, String Estado)
+    public boolean Agregar(int IdAlumno, double Monto, String Fecha, String Estado)
     {
         for(int i = 0; i < Pagos.length; i++)
         {
             if(Pagos[i] == null)
             {
-                Pagos[i] = new Pago(IdPago, IdAlumno, Monto, Fecha, Estado);
+                Pagos[i] = new Pago(i, IdAlumno, Monto, Fecha, Estado);
                 return true;
             }
         }

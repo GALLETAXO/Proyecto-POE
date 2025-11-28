@@ -30,13 +30,13 @@ public class Controlador_Clase {
         this.Clases = Clases;
     }
     
-    public boolean Agregar(int IdClase, String NombreClase, String Nivel, String Horario, int CupoMaximo)
+    public boolean Agregar(String NombreClase, String Nivel, String Horario, int CupoMaximo)
     {
         for(int i = 0; i < Clases.length; i++)
         {
             if(Clases[i] == null)
             {
-                Clases[i] = new Clase(IdClase, NombreClase, Nivel, Horario, CupoMaximo);
+                Clases[i] = new Clase(i, NombreClase, Nivel, Horario, CupoMaximo);
                 return true;
             }
         }

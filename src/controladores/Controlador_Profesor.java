@@ -30,13 +30,13 @@ public class Controlador_Profesor {
         this.Profesores = Profesores;
     }
     
-    public boolean Agregar(String Especialidad, double SueldoPorClase, int TotalClasesImpartidas, int Id, String Nombre, String Contraseña)
+    public boolean Agregar(String Especialidad, double SueldoPorClase, int TotalClasesImpartidas, String Nombre, String Contraseña)
     {
         for(int i = 0; i < Profesores.length; i++)
         {
             if(Profesores[i] == null)
             {
-                Profesores[i] = new Profesor(Especialidad, SueldoPorClase, TotalClasesImpartidas, Id, Nombre, Contraseña);
+                Profesores[i] = new Profesor(Especialidad, SueldoPorClase, TotalClasesImpartidas, i + 300, Nombre, Contraseña);
                 return true;
             }
         }

@@ -19,9 +19,10 @@ public class ActualizarDatosAlumno extends javax.swing.JInternalFrame {
      */
     public ActualizarDatosAlumno() {
         initComponents();
+        
     }
-    public ActualizarDatosAlumno(Controlador_Global CG) {
-    this.CG = CG;
+    public ActualizarDatosAlumno(Controlador_Global Cg) {
+    this.CG = Cg;
     initComponents();
     cargarDatos();
     }

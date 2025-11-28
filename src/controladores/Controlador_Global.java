@@ -102,6 +102,7 @@ public class Controlador_Global {
         this.Pg = new Controlador_Pago();
         this.P = new Controlador_Profesor();
         this.U = new Controlador_Usuario();
+        
     }
 
     public Controlador_Global(Controlador_Alumno A, Controlador_CA_Alumno CA_A, Controlador_CA_Profesor CA_P, Controlador_Clase C, Controlador_Director D, Controlador_Pago Pg, Controlador_Profesor P, Usuario UsuarioSesion) {
@@ -116,8 +117,11 @@ public class Controlador_Global {
     }
    //
   //Metodos usuario
+    
     public Controlador_Usuario getU() { return U; }
+    
     public void setU(Controlador_Usuario U) { this.U = U; }
+    
     public Usuario BuscarUsuario(int id) {
         return U.Buscar(id);
     }
@@ -137,7 +141,7 @@ public class Controlador_Global {
        LocalDateTime fecha = LocalDateTime.now();
        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
        String FechaEnFormato = fecha.format(formato);
-       return Pg.Agregar(Pg.Pagos.length + 1, US.getId(), Monto, FechaEnFormato, "Pagado");
+       return Pg.Agregar(US.getId(), Monto, FechaEnFormato, "Pagado");
    }
    
    public Object[][] ConsultarClasesDisponibles()
@@ -271,7 +275,7 @@ public class Controlador_Global {
        LocalDateTime fecha = LocalDateTime.now();
        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
        String FechaEnFormato = fecha.format(formato);
-       return Pg.Agregar(IdPago, IdAlumno, Monto, FechaEnFormato, Estado);
+       return Pg.Agregar(IdAlumno, Monto, FechaEnFormato, Estado);
    }
    
    //public boolean ValidarPago()
@@ -314,12 +318,31 @@ public class Controlador_Global {
    
    public boolean RegistrarClase(int IdClase, String NombreClase, String Nivel, String Horario, int CupoMaximo)
    {
-        return C.Agregar(IdClase, NombreClase, Nivel, Horario, CupoMaximo);
+        return C.Agregar(NombreClase, Nivel, Horario, CupoMaximo);
    }
    
    public boolean EliminarAlumno(int IdAlumno)
    {
        return A.Eliminar(IdAlumno);
+   }
+   
+   public Usuario IniciarSesion(int id)
+   {
+       if(A.Buscar(id) != null)
+       {
+           return A.Buscar(id);
+       }
+       else if(D.Buscar(id) != null)
+       {
+           return D.Buscar(id);
+       }
+       else if(P.Buscar(id) != null)
+       { 
+           return P.Buscar(id);
+       }
+       
+       return null;
+       
    }
    
    

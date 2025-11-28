@@ -31,13 +31,13 @@ public class Controlador_Director {
     }
     
     
-    public boolean Agregar(int Edad, String PlanInscrito, Double SaldoPendiente, int Id, String Nombre, String Contraseña)
+    public boolean Agregar(int Edad, String PlanInscrito, Double SaldoPendiente, String Nombre, String Contraseña)
     {
         for(int i = 0; i < Directores.length; i++)
         {
             if(Directores[i] == null)
             {
-                Directores[i] = new Alumno(Edad, PlanInscrito, SaldoPendiente, Id, Nombre, Contraseña);
+                Directores[i] = new Alumno(Edad, PlanInscrito, SaldoPendiente,i + 200, Nombre, Contraseña);
                 return true;
             }
         }

@@ -4,6 +4,7 @@
  */
 package Intefaz;
 
+import clases.Alumno;
 import clases.Usuario;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -137,9 +138,11 @@ public class InicioSesion extends javax.swing.JFrame {
 
         // Crear el controlador global
         Controlador_Global CG = new Controlador_Global();
+        CG.A.Agregar(12, "nose", 1200D, "Gael", "Epic");
 
         // Buscar usuario
-        Usuario encontrado = CG.BuscarUsuario(id); 
+        Usuario encontrado = CG.IniciarSesion(id);
+        
 
         if (encontrado == null) {
             JOptionPane.showMessageDialog(this, "Usuario no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
