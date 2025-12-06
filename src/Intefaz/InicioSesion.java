@@ -139,6 +139,9 @@ public class InicioSesion extends javax.swing.JFrame {
         // Crear el controlador global
         Controlador_Global CG = new Controlador_Global();
         CG.A.Agregar(12, "nose", 1200D, "Gael", "Epic");
+        CG.C.Agregar("Contempo", "Avanzado", "6PM", 14);
+        CG.C.Agregar("Ballet", "Intermedio", "8PM", 14);
+        CG.C.Agregar("Tango", "Intermedio", "5PM", 14);
 
         // Buscar usuario
         Usuario encontrado = CG.IniciarSesion(id);

@@ -85,13 +85,24 @@ public class Controlador_CA_Alumno {
     
     public Object[][] Mostrar()
     {
-        Object[][] datos = new Object[Asignaciones.length][3];
-        for(int i = 0; i < Asignaciones.length; i ++)
-        {
-            datos[i][0] = Asignaciones[i].getIdAlumno();
-            datos[i][1] = Asignaciones[i].getIdClase();
-            datos[i][2] = Asignaciones[i].getAsistencia();
-        } 
+            // Contamos solo los elementos no nulos
+        int count = 0;
+        for (int i = 0; i < Asignaciones.length; i++) {
+            if (Asignaciones[i] != null) count++;
+        }
+
+        Object[][] datos = new Object[count][5]; // cinco columnas: ID, Nombre, Nivel, Horario, Asistencias
+        int fila = 0;
+
+        for (int i = 0; i < Asignaciones.length; i++) {
+            if (Asignaciones[i] != null) {
+                datos[fila][0] = Asignaciones[i].getIdAlumno();
+                datos[fila][1] = Asignaciones[i].getIdClase();
+                datos[fila][4] = Asignaciones[i].getAsistencia(); // o lo que uses
+                fila++;
+            }
+        }
+
         return datos;
     }
     

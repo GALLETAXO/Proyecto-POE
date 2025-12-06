@@ -20,11 +20,11 @@ public class PagoAlumnos extends javax.swing.JInternalFrame {
      * Creates new form PagoAlumnos
      */
     public PagoAlumnos() {
-        initComponents();
+        throw new RuntimeException("Debes usar el constructor PagoAlumnos(Controlador_Global)");
         
     }
-    public PagoAlumnos(Controlador_Global CG) {
-        this.CG = CG;
+    public PagoAlumnos(Controlador_Global Cg) {
+        this.CG = Cg;
         initComponents();
         cargarTabla();
     }
@@ -42,11 +42,15 @@ public class PagoAlumnos extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        jbnPagar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jbnTotal = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         jLabel2.setFont(new java.awt.Font("Segoe Script", 0, 18)); // NOI18N
         jLabel2.setText("Paga tus clases");
@@ -75,20 +79,20 @@ public class PagoAlumnos extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setBackground(new java.awt.Color(0, 0, 0));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Pagar");
-        jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jbnPagar.setBackground(new java.awt.Color(0, 0, 0));
+        jbnPagar.setForeground(new java.awt.Color(255, 255, 255));
+        jbnPagar.setText("Pagar");
+        jbnPagar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jbnPagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jbnPagarActionPerformed(evt);
             }
         });
 
         jPanel2.setBackground(new java.awt.Color(255, 204, 204));
 
-        jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 12)); // NOI18N
-        jLabel1.setText("Total:");
+        jbnTotal.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 12)); // NOI18N
+        jbnTotal.setText("Total:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -96,14 +100,14 @@ public class PagoAlumnos extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jLabel1)
+                .addComponent(jbnTotal)
                 .addContainerGap(102, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(jbnTotal)
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -116,7 +120,7 @@ public class PagoAlumnos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbnPagar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -138,46 +142,53 @@ public class PagoAlumnos extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(11, 11, 11)
-                        .addComponent(jButton1)))
+                        .addComponent(jbnPagar)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+    private void jbnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbnPagarActionPerformed
         int fila = jTable1.getSelectedRow();
-    if(fila == -1){
-        JOptionPane.showMessageDialog(this, "Selecciona una clase para pagar");
-        return;
-    }
-    
-    int idClase = (int) jTable1.getValueAt(fila, 0);
-    double monto = (double) jTable1.getValueAt(fila, 4);
-    
-    boolean exito = CG.RealizarPago(monto); // este método ya registra el pago del alumno
-    if(exito){
-        JOptionPane.showMessageDialog(this, "Pago realizado con éxito");
-        cargarTabla(); // refresca la tabla
-    } else {
-        JOptionPane.showMessageDialog(this, "Error al realizar el pago");
-    }
-    }//GEN-LAST:event_jButton1ActionPerformed
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Selecciona una clase para pagar");
+            return;
+        }
+
+        try {
+            String montoStr = String.valueOf(jTable1.getValueAt(fila, 4));
+            double monto = Double.parseDouble(montoStr);
+
+            boolean exito = CG.RealizarPago(monto);
+
+            if (exito) {
+                // Actualizamos el saldo del alumno a 0
+                CG.getA().ActualizarSaldo(CG.getUsuarioSesion().getId(), 0.0);
+                JOptionPane.showMessageDialog(this, "Pago realizado con éxito, reincie la tabla para ver actualizado");
+                cargarTabla(); // refresca la tabla y el total
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al realizar el pago");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al leer datos de la tabla: " + e.getMessage());
+        }
+    }//GEN-LAST:event_jbnPagarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton jbnPagar;
+    private javax.swing.JLabel jbnTotal;
     // End of variables declaration//GEN-END:variables
 
     private void cargarTabla() {
-        Object[][] clases = CG.verHistorialAsistencias(); // aquí filtras las que el alumno necesita pagar
+        Object[][] clases = CG.A.Mostrar();
         String[] columnas = {"ID Clase", "Nombre", "Nivel", "Horario", "Monto"};
         DefaultTableModel modelo = new DefaultTableModel(clases, columnas);
         jTable1.setModel(modelo);

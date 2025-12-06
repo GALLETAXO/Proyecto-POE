@@ -49,6 +49,11 @@ public class ActualizarDatosAlumno extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jbnActualizar = new javax.swing.JButton();
 
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
         jLabel1.setFont(new java.awt.Font("Segoe Script", 0, 12)); // NOI18N

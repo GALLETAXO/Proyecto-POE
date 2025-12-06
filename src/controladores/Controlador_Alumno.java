@@ -45,6 +45,15 @@ public class Controlador_Alumno {
         return false;   
     }
     
+    public boolean ActualizarSaldo(int idAlumno, double nuevoSaldo) {
+    Alumno a = Buscar(idAlumno);
+    if (a != null) {
+        a.setSaldoPendiente(nuevoSaldo);
+        return true;
+    }
+    return false;
+    }
+    
     public boolean Actualizar(int Edad, String PlanInscrito, Double SaldoPendiente, int Id, String Nombre, String Contraseña)
     {
         for(int i = 0; i < Alumnos.length; i++)
@@ -73,16 +82,25 @@ public class Controlador_Alumno {
     
     public Object[][] Mostrar()
     {
-        Object[][] datos = new Object[Alumnos.length][5];
-        for(int i = 0; i < Alumnos.length; i ++)
-        {
-            datos[i][0] = Alumnos[i].getId();
-            datos[i][1] = Alumnos[i].getNombre();
-            datos[i][2] = Alumnos[i].getEdad();
-            datos[i][3] = Alumnos[i].getPlanInscrito();
-            datos[i][4] = Alumnos[i].getSaldoPendiente();
-        } 
+        int n = 0;
+        for (int i = 0; i < Alumnos.length; i++) {
+            if (Alumnos[i] != null) n++;
+        }
+
+        Object[][] datos = new Object[n][5];
+        int fila = 0;
+        for (int i = 0; i < Alumnos.length; i++) {
+            if (Alumnos[i] != null) {
+                datos[fila][0] = Alumnos[i].getId();
+                datos[fila][1] = Alumnos[i].getNombre();
+                datos[fila][2] = Alumnos[i].getEdad();
+                datos[fila][3] = Alumnos[i].getPlanInscrito();
+                datos[fila][4] = Alumnos[i].getSaldoPendiente();
+                fila++;
+            }
+        }
         return datos;
+
     }
     
     public Alumno Buscar(int Id)
@@ -96,4 +114,5 @@ public class Controlador_Alumno {
         }
         return null;
     } 
+    
 }

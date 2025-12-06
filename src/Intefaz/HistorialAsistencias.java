@@ -22,8 +22,8 @@ public class HistorialAsistencias extends javax.swing.JInternalFrame {
         initComponents();
     }
     
-    public HistorialAsistencias(Controlador_Global CG) {
-    this.CG = CG;
+    public HistorialAsistencias(Controlador_Global Cg) {
+    this.CG = Cg;
     initComponents();
     cargarTabla();
     }

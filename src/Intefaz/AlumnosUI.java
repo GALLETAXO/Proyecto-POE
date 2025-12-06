@@ -14,7 +14,7 @@ public class AlumnosUI extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AlumnosUI.class.getName());
     public Controlador_Global GC;
-
+    
     /**
      * Creates new form AlumnosUI
      */
@@ -25,7 +25,7 @@ public class AlumnosUI extends javax.swing.JFrame {
         initComponents();
         GC = Gc;
     }
-
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -139,7 +139,7 @@ public class AlumnosUI extends javax.swing.JFrame {
     private void jmiReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiReservarActionPerformed
         // TODO add your handling code here:
         
-        ReservarClasesAlumno ventanaReservarClaseAlumno = new ReservarClasesAlumno();
+        ReservarClasesAlumno ventanaReservarClaseAlumno = new ReservarClasesAlumno(GC);
         jDesktopPane1.add(ventanaReservarClaseAlumno);
         ventanaReservarClaseAlumno.show();
     }//GEN-LAST:event_jmiReservarActionPerformed

@@ -4,22 +4,31 @@
  */
 package Intefaz;
 
+import clases.Clase;
 import controladores.Controlador_Global;
-
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author junom
  */
 public class ReservarClasesAlumno extends javax.swing.JInternalFrame {
-
+    
+    private Controlador_Global CG;
+    
     /**
      * Creates new form ReservarClases
      */
     public ReservarClasesAlumno() {
         initComponents();
     }
-    public ReservarClasesAlumno(Controlador_Global GC) {
+    public ReservarClasesAlumno(Controlador_Global Cg) {
+        this.CG = Cg;
         initComponents();
+        configurarTabla();
+        cargarTabla();
+        configurarBotonReservar();
+
     }
 
     /**
@@ -31,13 +40,21 @@ public class ReservarClasesAlumno extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
+        jbnReservar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtableClases = new javax.swing.JTable();
+
+        jButton1.setText("jButton1");
 
         setBackground(new java.awt.Color(0, 0, 0));
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -61,25 +78,40 @@ public class ReservarClasesAlumno extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
         jLabel2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         jLabel2.setText("Clases disponibles");
+
+        jbnReservar.setText("Reservar");
+
+        jtableClases.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jtableClases);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jbnReservar)))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -88,9 +120,11 @@ public class ReservarClasesAlumno extends javax.swing.JInternalFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
                 .addComponent(jLabel2)
-                .addGap(1, 1, 1)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbnReservar)
+                .addGap(117, 117, 117))
         );
 
         pack();
@@ -98,10 +132,76 @@ public class ReservarClasesAlumno extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton jbnReservar;
+    private javax.swing.JTable jtableClases;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarTabla() {
+       if (CG == null || CG.getC() == null) {
+            JOptionPane.showMessageDialog(this, "No hay clases registradas.");
+            return;
+        }
+
+        Clase[] lista = CG.getC().getClases();
+
+        DefaultTableModel model = (DefaultTableModel) jtableClases.getModel();
+        model.setRowCount(0);
+
+        for (Clase c : lista) {
+            if (c != null) {
+                model.addRow(new Object[]{
+                    c.getIdClase(),
+                    c.getNombreClase(),
+                    c.getNivel(),
+                    c.getHorario(),
+                    c.getCupoMaximo()
+                });
+            }
+        }
+    }
+
+    private void configurarBotonReservar() {
+        jbnReservar.addActionListener(evt -> {
+
+            int fila = jtableClases.getSelectedRow();
+
+            if (fila == -1) {
+                JOptionPane.showMessageDialog(this, "Selecciona una clase.");
+                return;
+            }
+
+            int idClase = (int) jtableClases.getValueAt(fila, 0);
+            Clase claseSeleccionada = CG.getC().Buscar(idClase);
+
+            if (claseSeleccionada == null) {
+                JOptionPane.showMessageDialog(this, "La clase no existe.");
+                return;
+            }
+
+            CG.CA_A.Agregar(CG.getUsuarioSesion().getId(), idClase, 0);
+
+            JOptionPane.showMessageDialog(this, "Clase reservada con éxito.");
+        });
+    }
+
+    private void configurarTabla() {
+        String[] columnas = {
+            "ID", "Clase", "Nivel", "Horario", "Cupo"
+        };
+
+        DefaultTableModel model = new DefaultTableModel(columnas, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // tabla no editable
+            }
+        };
+
+        jtableClases.setModel(model);
+    }
+    
 }
