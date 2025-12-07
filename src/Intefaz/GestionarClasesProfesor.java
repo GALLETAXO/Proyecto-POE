@@ -4,6 +4,9 @@
  */
 package Intefaz;
 
+import controladores.Controlador_Global;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author junom
@@ -11,11 +14,18 @@ package Intefaz;
 public class GestionarClasesProfesor extends javax.swing.JInternalFrame {
 
     ProfesoresUI pui;
+    int idProfesor;
+    Controlador_Global CG;
     /**
      * Creates new form GestionarClasesProfesor
      */
-    public GestionarClasesProfesor(ProfesoresUI pui) {
+    public GestionarClasesProfesor(Controlador_Global Gc, int idProfesor) {
         initComponents();
+        this.pui = pui;
+        this.CG = Gc;
+        this.idProfesor = idProfesor;
+
+        cargarTabla();
     }
 
     /**
@@ -32,6 +42,11 @@ public class GestionarClasesProfesor extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -119,4 +134,13 @@ public class GestionarClasesProfesor extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarTabla() {
+        Object[][] datos = CG.obtenerClasesProfesor(idProfesor);
+
+        String[] columnas = {"ID Clase", "Asistencias", "ID Profesor"};
+
+        DefaultTableModel modelo = new DefaultTableModel(datos, columnas);
+        jTable1.setModel(modelo);
+    }
 }

@@ -105,12 +105,10 @@ public class Controlador_Alumno {
     
     public Alumno Buscar(int Id)
     {
-        for(int i = 0; i < Alumnos.length; i++)
-        {
-            if(Alumnos[i].getId() == Id)
-            {
-                return Alumnos[i];
-            }
+        for (int i = 0; i < Alumnos.length; i++) {
+        if (Alumnos[i] != null && Alumnos[i].getId() == Id) {
+            return Alumnos[i];
+        }
         }
         return null;
     } 

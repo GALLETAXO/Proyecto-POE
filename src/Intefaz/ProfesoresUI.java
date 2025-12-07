@@ -14,7 +14,7 @@ import controladores.Controlador_Global;
 public class ProfesoresUI extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ProfesoresUI.class.getName());
-
+    public Controlador_Global GC;
     /**
      * Creates new form ProfesoresUI
      */
@@ -30,8 +30,9 @@ public class ProfesoresUI extends javax.swing.JFrame {
         jMenu4.setForeground(Color.WHITE);
 
     }
-    public ProfesoresUI(Controlador_Global GC) {
+    public ProfesoresUI(Controlador_Global Gc) {
         initComponents();
+        GC = Gc;
         jMenuBar1.setOpaque(true);
         jMenuBar1.setBackground(Color.BLACK);
         jMenuBar1.setForeground(Color.WHITE);
@@ -113,6 +114,11 @@ public class ProfesoresUI extends javax.swing.JFrame {
         jMenu3.setText("Asistencias");
 
         vtnAsistenciasProfesor.setText("Anotar asistencias");
+        vtnAsistenciasProfesor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vtnAsistenciasProfesorActionPerformed(evt);
+            }
+        });
         jMenu3.add(vtnAsistenciasProfesor);
 
         jMenuBar1.add(jMenu3);
@@ -120,6 +126,11 @@ public class ProfesoresUI extends javax.swing.JFrame {
         jMenu4.setText("Yo");
 
         vtnPagosProfesores.setText("Pagos");
+        vtnPagosProfesores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vtnPagosProfesoresActionPerformed(evt);
+            }
+        });
         jMenu4.add(vtnPagosProfesores);
 
         jMenuBar1.add(jMenu4);
@@ -142,11 +153,24 @@ public class ProfesoresUI extends javax.swing.JFrame {
 
     private void vtnClasesProfesoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vtnClasesProfesoresActionPerformed
         // TODO add your handling code here:
-        GestionarClasesProfesor interfaz = new GestionarClasesProfesor(this);
-        
+        GestionarClasesProfesor interfaz = new GestionarClasesProfesor(GC,GC.getUsuarioSesion().getId()); 
         jDesktopPane1.add(interfaz);
         interfaz.show();
     }//GEN-LAST:event_vtnClasesProfesoresActionPerformed
+
+    private void vtnAsistenciasProfesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vtnAsistenciasProfesorActionPerformed
+        // TODO add your handling code here:
+        AsistenciasProfesores interfaz = new AsistenciasProfesores(GC); 
+        jDesktopPane1.add(interfaz);
+        interfaz.show();
+    }//GEN-LAST:event_vtnAsistenciasProfesorActionPerformed
+
+    private void vtnPagosProfesoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vtnPagosProfesoresActionPerformed
+        // TODO add your handling code here:
+        PagoProfesor interfaz = new PagoProfesor(GC); 
+        jDesktopPane1.add(interfaz);
+        interfaz.show();
+    }//GEN-LAST:event_vtnPagosProfesoresActionPerformed
 
     /**
      * @param args the command line arguments

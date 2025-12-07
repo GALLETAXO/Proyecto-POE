@@ -73,23 +73,31 @@ public class Controlador_Profesor {
     public Object[][] Mostrar()
     {
         Object[][] datos = new Object[Profesores.length][5];
-        for(int i = 0; i < Profesores.length; i ++)
-        {
-            datos[i][0] = Profesores[i].getId();
-            datos[i][1] = Profesores[i].getNombre();
-            datos[i][2] = Profesores[i].getEspecialidad();
-            datos[i][3] = Profesores[i].getSueldoPorClase();
-            datos[i][4] = Profesores[i].getTotalClasesImpartidas();
-        } 
-        return datos;
+
+        for (int i = 0; i < Profesores.length; i++) {
+            if (Profesores[i] != null) {
+                datos[i][0] = Profesores[i].getId();
+                datos[i][1] = Profesores[i].getNombre();
+                datos[i][2] = Profesores[i].getEspecialidad();
+                datos[i][3] = Profesores[i].getSueldoPorClase();
+                datos[i][4] = Profesores[i].getTotalClasesImpartidas();
+            } else {
+                // Si es null, dejamos campos vacíos o nulos
+                datos[i][0] = "";
+                datos[i][1] = "";
+                datos[i][2] = "";
+                datos[i][3] = "";
+                datos[i][4] = "";
+            }
+        }
+
+    return datos;
     }
     
     public Profesor Buscar(int Id)
     {
-        for(int i = 0; i < Profesores.length; i++)
-        {
-            if(Profesores[i].getId() == Id)
-            {
+        for (int i = 0; i < Profesores.length; i++) {
+            if (Profesores[i]  != null && Profesores[i].getId() == Id) {
                 return Profesores[i];
             }
         }

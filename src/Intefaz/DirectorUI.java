@@ -13,6 +13,7 @@ import controladores.Controlador_Global;
 
 public class DirectorUI extends javax.swing.JFrame {
     
+    public Controlador_Global GC;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DirectorUI.class.getName());
 
     /**
@@ -21,8 +22,9 @@ public class DirectorUI extends javax.swing.JFrame {
     public DirectorUI() {
         initComponents();
     }
-    public DirectorUI(Controlador_Global GC) {
+    public DirectorUI(Controlador_Global Gc) {
         initComponents();
+        GC = Gc;
     }
 
     /**
@@ -77,6 +79,11 @@ public class DirectorUI extends javax.swing.JFrame {
         jMenu2.setText("Pagos");
 
         vtnPagosDirector.setText("Gestionar Pagos");
+        vtnPagosDirector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vtnPagosDirectorActionPerformed(evt);
+            }
+        });
         jMenu2.add(vtnPagosDirector);
 
         jMenuBar1.add(jMenu2);
@@ -84,6 +91,11 @@ public class DirectorUI extends javax.swing.JFrame {
         jMenu3.setText("Profesores");
 
         vtnSupervisarDirector.setText("Supervisar");
+        vtnSupervisarDirector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vtnSupervisarDirectorActionPerformed(evt);
+            }
+        });
         jMenu3.add(vtnSupervisarDirector);
 
         jMenuBar1.add(jMenu3);
@@ -91,6 +103,11 @@ public class DirectorUI extends javax.swing.JFrame {
         jMenu6.setText("Reportes");
 
         vtnReportesDirector.setText("Ver Reportes");
+        vtnReportesDirector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vtnReportesDirectorActionPerformed(evt);
+            }
+        });
         jMenu6.add(vtnReportesDirector);
 
         jMenuBar1.add(jMenu6);
@@ -98,6 +115,11 @@ public class DirectorUI extends javax.swing.JFrame {
         jMenu7.setText("Clases");
 
         jMenuItem4.setText("Gestionar");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu7.add(jMenuItem4);
 
         jMenuBar1.add(jMenu7);
@@ -105,6 +127,11 @@ public class DirectorUI extends javax.swing.JFrame {
         jMenu8.setText("Alumnnos");
 
         vtnEliminarADirector.setText("Gestionar");
+        vtnEliminarADirector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vtnEliminarADirectorActionPerformed(evt);
+            }
+        });
         jMenu8.add(vtnEliminarADirector);
 
         jMenuBar1.add(jMenu8);
@@ -126,6 +153,30 @@ public class DirectorUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void vtnPagosDirectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vtnPagosDirectorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_vtnPagosDirectorActionPerformed
+
+    private void vtnSupervisarDirectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vtnSupervisarDirectorActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_vtnSupervisarDirectorActionPerformed
+
+    private void vtnReportesDirectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vtnReportesDirectorActionPerformed
+        // TODO add your handling code here:
+        SupervisarDirector  ventanaPagoAlumno = new SupervisarDirector(GC);
+        jDesktopPane1.add(ventanaPagoAlumno);
+        ventanaPagoAlumno.show();
+    }//GEN-LAST:event_vtnReportesDirectorActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void vtnEliminarADirectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vtnEliminarADirectorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_vtnEliminarADirectorActionPerformed
 
     /**
      * @param args the command line arguments

@@ -240,6 +240,9 @@ public class Controlador_Global {
        return false;
    }
    
+   public Object[][] obtenerClasesProfesor(int idProfesor) {
+    return CA_P.MostrarPorProfesor(idProfesor);
+    }
    public Object[][] ConsultarClasesAsignadas()
    {
        Object[][] datos = new Object[CA_A.Asignaciones.length][5];
@@ -343,14 +346,5 @@ public class Controlador_Global {
        
        return null;
        
-   }
-   
-   
-   
-   
-   
-
-   
-   
-   
+   } 
 }

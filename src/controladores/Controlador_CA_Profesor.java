@@ -83,7 +83,7 @@ public class Controlador_CA_Profesor {
         return false;
     }
     
-    public Object[][] Mostrar()
+    public Object[][] Mostrar(int idProfesor)
     {
         Object[][] datos = new Object[Asignaciones.length][3];
         for(int i = 0; i < Asignaciones.length; i ++)
@@ -94,7 +94,29 @@ public class Controlador_CA_Profesor {
         } 
         return datos;
     }
-    
+    public Object[][] MostrarPorProfesor(int idProfesor) {
+    // Primero contamos cuántos registros existen
+    int count = 0;
+    for (CA_Profesor a : Asignaciones) {
+        if (a != null && a.getIdProfesor() == idProfesor) {
+            count++;
+        }
+    }
+
+    Object[][] datos = new Object[count][3];
+    int fila = 0;
+
+    for (CA_Profesor a : Asignaciones) {
+        if (a != null && a.getIdProfesor() == idProfesor) {
+            datos[fila][0] = a.getIdClase();
+            datos[fila][1] = a.getAsistencia();
+            datos[fila][2] = a.getIdProfesor();
+            fila++;
+        }
+    }
+
+    return datos;
+}
     public CA_Profesor Buscar(int IdProfesor)
     {
         for(int i = 0; i < Asignaciones.length; i++)

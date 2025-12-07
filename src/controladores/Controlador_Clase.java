@@ -73,14 +73,21 @@ public class Controlador_Clase {
     public Object[][] Mostrar()
     {
         Object[][] datos = new Object[Clases.length][5];
-        for(int i = 0; i < Clases.length; i ++)
-        {
-            datos[i][0] = Clases[i].getIdClase();
-            datos[i][1] = Clases[i].getNombreClase();
-            datos[i][2] = Clases[i].getNivel();
-            datos[i][3] = Clases[i].getHorario();
-            datos[i][4] = Clases[i].getCupoMaximo();
-        } 
+        for (int i = 0; i < Clases.length; i++) {
+            if (Clases[i] != null) {
+                datos[i][0] = Clases[i].getIdClase();
+                datos[i][1] = Clases[i].getNombreClase();
+                datos[i][2] = Clases[i].getNivel();
+                datos[i][3] = Clases[i].getHorario();
+                datos[i][4] = Clases[i].getCupoMaximo();
+            } else {
+                datos[i][0] = "";
+                datos[i][1] = "";
+                datos[i][2] = "";
+                datos[i][3] = "";
+                datos[i][4] = "";
+            }
+        }
         return datos;
     }
     
@@ -97,6 +104,14 @@ public class Controlador_Clase {
         return null;
     }
     
+    public String buscarNombreClase(int idClase) {
+        for (int i = 0; i < Clases.length; i++) {
+            if (Clases[i] != null && Clases[i].getIdClase() == idClase) {
+                return Clases[i].getNombreClase();
+            }
+        }
+        return "Clase no encontrada";
+    }
     
     
     

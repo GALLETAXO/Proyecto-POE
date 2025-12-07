@@ -4,7 +4,7 @@
  */
 package controladores;
 
-import clases.Alumno;
+import clases.Director;
 
 /**
  *
@@ -12,32 +12,32 @@ import clases.Alumno;
  */
 public class Controlador_Director {
     
-    public Alumno[] Directores;
+    public Director[] Directores;
 
-    public Alumno[] getDirectores() {
+    public Director[] getDirectores() {
         return Directores;
     }
 
-    public void setDirectores(Alumno[] Directores) {
+    public void setDirectores(Director[] Directores) {
         this.Directores = Directores;
     }
 
     public Controlador_Director() {
-        this.Directores = new Alumno[5];
+        this.Directores = new Director[5];
     }
 
-    public Controlador_Director(Alumno[] Directores) {
+    public Controlador_Director(Director[] Directores) {
         this.Directores = Directores;
     }
     
     
-    public boolean Agregar(int Edad, String PlanInscrito, Double SaldoPendiente, String Nombre, String Contraseña)
+    public boolean Agregar(Double TotalIngresos, String Nombre, String Contraseña)
     {
         for(int i = 0; i < Directores.length; i++)
         {
             if(Directores[i] == null)
             {
-                Directores[i] = new Alumno(Edad, PlanInscrito, SaldoPendiente,i + 200, Nombre, Contraseña);
+                Directores[i] = new Director(TotalIngresos, i + 200, Nombre, Contraseña);
                 return true;
             }
         }
@@ -45,13 +45,14 @@ public class Controlador_Director {
         return false;   
     }
     
-    public boolean Actualizar(int Edad, String PlanInscrito, Double SaldoPendiente, int Id, String Nombre, String Contraseña)
+    public boolean Actualizar(Double TotalIngresos, int Id, String Nombre, String Contraseña)
     {
-        for(int i = 0; i < Directores.length; i++)
-        {
-            if(Directores[i].getId() == Id)
-            {
-                Directores[i] = new Alumno(Edad, PlanInscrito, SaldoPendiente, Id, Nombre, Contraseña);
+        for(int i = 0; i < Directores.length; i++) {
+            // Asegúrate de que el objeto no sea null antes de llamar a getId()
+            if(Directores[i] != null && Directores[i].getId() == Id) { 
+                // Crea un nuevo objeto Director con los datos actualizados.
+                // IMPORTANTE: Asegúrate de que este orden de argumentos coincida con tu constructor Director.
+                Directores[i] = new Director(TotalIngresos, Id, Nombre, Contraseña);
                 return true;
             }
         }
@@ -73,23 +74,24 @@ public class Controlador_Director {
     
     public Object[][] Mostrar()
     {
-        Object[][] datos = new Object[Directores.length][5];
-        for(int i = 0; i < Directores.length; i ++)
-        {
-            datos[i][0] = Directores[i].getId();
-            datos[i][1] = Directores[i].getNombre();
-            datos[i][2] = Directores[i].getEdad();
-            datos[i][3] = Directores[i].getPlanInscrito();
-            datos[i][4] = Directores[i].getSaldoPendiente();
-        } 
+        Object[][] datos = new Object[Directores.length][4]; 
+        
+        for(int i = 0; i < Directores.length; i ++) {
+            if (Directores[i] != null) {
+                datos[i][0] = Directores[i].getId();
+                datos[i][1] = Directores[i].getNombre();
+                datos[i][2] = Directores[i].getTotalIngresos(); 
+                datos[i][3] = Directores[i].getContraseña();
+            }
+        }
         return datos;
     }
     
-    public Alumno Buscar(int Id)
+    public Director Buscar(int Id)
     {
         for(int i = 0; i < Directores.length; i++)
         {
-            if(Directores[i].getId() == Id)
+            if(Directores[i] != null && Directores[i].getId() == Id)
             {
                 return Directores[i];
             }

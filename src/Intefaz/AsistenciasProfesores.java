@@ -4,11 +4,15 @@
  */
 package Intefaz;
 
+import controladores.Controlador_Global;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author junom
  */
 public class AsistenciasProfesores extends javax.swing.JInternalFrame {
+    Controlador_Global CG;
 
     /**
      * Creates new form AsistenciasProfesores
@@ -16,7 +20,11 @@ public class AsistenciasProfesores extends javax.swing.JInternalFrame {
     public AsistenciasProfesores() {
         initComponents();
     }
-
+    public AsistenciasProfesores(Controlador_Global Gc) {
+        this.CG = Gc;
+        initComponents();
+        cargarListas();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,11 +39,16 @@ public class AsistenciasProfesores extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jtlistAlumnos = new javax.swing.JList<>();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
-        jButton1 = new javax.swing.JButton();
+        jlistClase = new javax.swing.JList<>();
+        jbnConfirmarAsistencia = new javax.swing.JButton();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         jPanel1.setBackground(new java.awt.Color(0, 51, 51));
 
@@ -66,27 +79,32 @@ public class AsistenciasProfesores extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Segoe Script", 0, 12)); // NOI18N
         jLabel2.setText("Alumnos");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        jtlistAlumnos.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(jtlistAlumnos);
 
         jLabel3.setFont(new java.awt.Font("SimSun", 0, 12)); // NOI18N
         jLabel3.setText("Clase");
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+        jlistClase.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jList2);
+        jScrollPane2.setViewportView(jlistClase);
 
-        jButton1.setBackground(new java.awt.Color(0, 0, 0));
-        jButton1.setFont(new java.awt.Font("SimSun", 0, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Asistieron");
+        jbnConfirmarAsistencia.setBackground(new java.awt.Color(0, 0, 0));
+        jbnConfirmarAsistencia.setFont(new java.awt.Font("SimSun", 0, 12)); // NOI18N
+        jbnConfirmarAsistencia.setForeground(new java.awt.Color(255, 255, 255));
+        jbnConfirmarAsistencia.setText("Asistieron");
+        jbnConfirmarAsistencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbnConfirmarAsistenciaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -96,7 +114,7 @@ public class AsistenciasProfesores extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(jbnConfirmarAsistencia)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -121,7 +139,7 @@ public class AsistenciasProfesores extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(jbnConfirmarAsistencia)
                 .addContainerGap())
         );
 
@@ -147,17 +165,101 @@ public class AsistenciasProfesores extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbnConfirmarAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbnConfirmarAsistenciaActionPerformed
+        confirmarAsistencia();
+    }//GEN-LAST:event_jbnConfirmarAsistenciaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton jbnConfirmarAsistencia;
+    private javax.swing.JList<String> jlistClase;
+    private javax.swing.JList<String> jtlistAlumnos;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarListas() {
+
+        int totalAlumnos = 0;
+        for (int i = 0; i < CG.CA_A.Asignaciones.length; i++) {
+            if (CG.CA_A.Asignaciones[i] != null) totalAlumnos++;
+        }
+        
+        String[] alumnos = new String[totalAlumnos];
+        int posA = 0;
+
+        for (int i = 0; i < CG.CA_A.Asignaciones.length; i++) {
+            if (CG.CA_A.Asignaciones[i] != null) {
+                alumnos[posA] =
+                        CG.CA_A.Asignaciones[i].getIdAlumno()
+                        + " - Alumno";
+                posA++;
+            }
+        }
+
+        jtlistAlumnos.setListData(alumnos);
+
+
+        // ----------- CARGAR CLASES DEL PROFESOR -----------
+
+        int idProfesor = CG.getUsuarioSesion().getId();
+
+        int totalClases = 0;
+        for (int i = 0; i < CG.CA_P.Asignaciones.length; i++) {
+            if (CG.CA_P.Asignaciones[i] != null
+                    && CG.CA_P.Asignaciones[i].getIdProfesor() == idProfesor) {
+                totalClases++;
+            }
+        }
+
+        String[] clases = new String[totalClases];
+        int posC = 0;
+
+        for (int i = 0; i < CG.CA_P.Asignaciones.length; i++) {
+            if (CG.CA_P.Asignaciones[i] != null
+                    && CG.CA_P.Asignaciones[i].getIdProfesor() == idProfesor) {
+
+                clases[posC] =
+                        CG.CA_P.Asignaciones[i].getIdClase()
+                        + " - Clase Asignada";
+
+                posC++;
+            }
+        }
+
+        jlistClase.setListData(clases);
+    }
+    
+     private void confirmarAsistencia() {
+
+        String alumnoSel = jtlistAlumnos.getSelectedValue();
+        String claseSel = jlistClase.getSelectedValue();
+
+        if (alumnoSel == null || claseSel == null) {
+            JOptionPane.showMessageDialog(this, "Selecciona un alumno y una clase.");
+            return;
+        }
+
+        int idAlumno = Integer.parseInt(alumnoSel.split(" - ")[0]);
+        int idClase = Integer.parseInt(claseSel.split(" - ")[0]);
+
+        // SUMAR ASISTENCIA AL ALUMNO
+        boolean exitoA = CG.CA_A.SumarAsistencia(idAlumno);
+
+        // SUMAR ASISTENCIA AL PROFESOR
+        int idProfesor = CG.getUsuarioSesion().getId();
+        
+        boolean exitoP = CG.CA_P.SumarAsistencia(idProfesor);
+        
+        if (exitoA && exitoP) {
+            JOptionPane.showMessageDialog(this, "Asistencia registrada correctamente.");
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo registrar la asistencia.");
+        }
+    }
 }

@@ -4,11 +4,15 @@
  */
 package Intefaz;
 
+import controladores.Controlador_Global;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author junom
  */
 public class SupervisarDirector extends javax.swing.JInternalFrame {
+    private Controlador_Global CG;
 
     /**
      * Creates new form SuperVisar
@@ -16,6 +20,11 @@ public class SupervisarDirector extends javax.swing.JInternalFrame {
     public SupervisarDirector() {
         initComponents();
     }
+    public SupervisarDirector(Controlador_Global cg) {
+    this.CG = cg;
+    initComponents();
+    cargarTablas();
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,25 +36,25 @@ public class SupervisarDirector extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jtabPane = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtableProfesores = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        jtableClases = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jtableAlumnos = new javax.swing.JTable();
 
         jLabel1.setFont(new java.awt.Font("SimSun", 0, 18)); // NOI18N
         jLabel1.setText("Supervisar");
 
-        jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jtabPane.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtableProfesores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -56,7 +65,7 @@ public class SupervisarDirector extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtableProfesores);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -75,11 +84,11 @@ public class SupervisarDirector extends javax.swing.JInternalFrame {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Profesores", jPanel1);
+        jtabPane.addTab("Profesores", jPanel1);
 
         jPanel4.setBackground(new java.awt.Color(255, 204, 204));
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        jtableClases.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -90,7 +99,7 @@ public class SupervisarDirector extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(jtableClases);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -106,14 +115,14 @@ public class SupervisarDirector extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Clases", jPanel4);
+        jtabPane.addTab("Clases", jPanel4);
 
         jPanel3.setBackground(new java.awt.Color(0, 0, 0));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jtableAlumnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -124,7 +133,7 @@ public class SupervisarDirector extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(jtableAlumnos);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -140,10 +149,10 @@ public class SupervisarDirector extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Alumnos", jPanel3);
+        jtabPane.addTab("Alumnos", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -153,7 +162,7 @@ public class SupervisarDirector extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jtabPane, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(188, 188, 188)
                         .addComponent(jLabel1)))
@@ -165,7 +174,7 @@ public class SupervisarDirector extends javax.swing.JInternalFrame {
                 .addGap(12, 12, 12)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jtabPane, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -181,9 +190,36 @@ public class SupervisarDirector extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
+    private javax.swing.JTabbedPane jtabPane;
+    private javax.swing.JTable jtableAlumnos;
+    private javax.swing.JTable jtableClases;
+    private javax.swing.JTable jtableProfesores;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarTablas() {
+        cargarProfesores();
+        cargarClases();
+        cargarAlumnos();
+    }
+
+    private void cargarProfesores() {
+        Object[][] datos = CG.getP().Mostrar();
+        String[] columnas = {"ID", "Nombre", "Especialidad", "Sueldo", "Clases impartidas"};
+        DefaultTableModel modelo = new DefaultTableModel(datos, columnas);
+        jtableProfesores.setModel(modelo);
+    }
+
+    private void cargarClases() {
+        Object[][] datos = CG.getC().Mostrar();
+        String[] columnas = {"ID Clase", "Nombre", "Nivel", "Horario", "Cupo"};
+        DefaultTableModel modelo = new DefaultTableModel(datos, columnas);
+        jtableClases.setModel(modelo);
+    }
+
+    private void cargarAlumnos() {
+        Object[][] datos = CG.getA().Mostrar();
+        String[] columnas = {"ID", "Nombre", "Edad", "Plan", "Saldo"};
+        DefaultTableModel modelo = new DefaultTableModel(datos, columnas);
+        jtableAlumnos.setModel(modelo);
+    }
 }

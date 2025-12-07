@@ -4,17 +4,28 @@
  */
 package Intefaz;
 
+import controladores.Controlador_Global;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author junom
  */
 public class PagoProfesor extends javax.swing.JInternalFrame {
-
+    private Controlador_Global CG;
     /**
      * Creates new form PagoProfesor
      */
+    
+    
     public PagoProfesor() {
         initComponents();
+    }
+
+    public PagoProfesor(Controlador_Global Cg) {
+        this.CG = Cg;                 
+        initComponents();             
+        cargarClasesYCalcularPago(); 
     }
 
     /**
@@ -29,17 +40,22 @@ public class PagoProfesor extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtableClasesImpartidas = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jtfSueldo = new javax.swing.JTextField();
 
         jLabel1.setText("jLabel1");
 
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtableClasesImpartidas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -50,7 +66,7 @@ public class PagoProfesor extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtableClasesImpartidas);
 
         jLabel2.setFont(new java.awt.Font("SimSun", 0, 12)); // NOI18N
         jLabel2.setText("Clases impartidas");
@@ -61,8 +77,8 @@ public class PagoProfesor extends javax.swing.JInternalFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Sueldo:");
 
-        jTextField1.setEditable(false);
-        jTextField1.setText("sueldo");
+        jtfSueldo.setEditable(false);
+        jtfSueldo.setText("sueldo");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -72,7 +88,7 @@ public class PagoProfesor extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jtfSueldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -80,7 +96,7 @@ public class PagoProfesor extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfSueldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
@@ -139,7 +155,42 @@ public class PagoProfesor extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable jtableClasesImpartidas;
+    private javax.swing.JTextField jtfSueldo;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarClasesYCalcularPago() {
+        int idProfe = CG.getUsuarioSesion().getId();
+
+        // Modelo limpio para la tabla
+        DefaultTableModel modelo = new DefaultTableModel(
+                new Object[]{"ID Clase", "Nombre Clase"}, 0
+        );
+
+        int contadorClases = 0;
+
+        // Recorremos todas las asignaciones de profesores
+        for (int i = 0; i < CG.CA_P.Asignaciones.length; i++) {
+            if (CG.CA_P.Asignaciones[i] != null) {
+
+                if (CG.CA_P.Asignaciones[i].getIdProfesor() == idProfe) {
+
+                    int idClase = CG.CA_P.Asignaciones[i].getIdClase();
+                    String nombreClase = CG.C.buscarNombreClase(idClase);
+                    modelo.addRow(new Object[]{
+                        idClase,
+                        nombreClase
+                    });
+
+                    contadorClases++;
+                }
+            }
+        }
+
+        jtableClasesImpartidas.setModel(modelo);
+
+        // Pago = $100 por clase
+        int pagoTotal = contadorClases * 100;
+        jtfSueldo.setText("$ " + pagoTotal);
+    }
 }
