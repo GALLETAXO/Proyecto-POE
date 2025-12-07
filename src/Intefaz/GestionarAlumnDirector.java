@@ -4,16 +4,25 @@
  */
 package Intefaz;
 
+import clases.Alumno;
+import controladores.Controlador_Global;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author junom
  */
 public class GestionarAlumnDirector extends javax.swing.JInternalFrame {
-
+    int idAlumnoActual = -1;
+    private Controlador_Global CG;
     /**
      * Creates new form GestionarClasesDirectpr
      */
     public GestionarAlumnDirector() {
+        initComponents();
+    }
+    public GestionarAlumnDirector(Controlador_Global cg) {
+        this.CG = cg;
         initComponents();
     }
 
@@ -29,33 +38,51 @@ public class GestionarAlumnDirector extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
         jButton3 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jbnActualizar = new javax.swing.JButton();
+        jbnEliminar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        jtfNombreAlumno = new javax.swing.JTextField();
+        jtfSaldoPendiente = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jtfEdad = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jtfPlan = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jtfContraseña = new javax.swing.JTextField();
+        jbnBuscar = new javax.swing.JButton();
+        jbnAgregar = new javax.swing.JButton();
 
         jScrollPane1.setViewportView(jTextPane1);
 
         jButton3.setText("jButton3");
 
-        jButton1.setFont(new java.awt.Font("SimSun", 0, 12)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/update.png"))); // NOI18N
-        jButton1.setText("Actualizar");
-        jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+
+        jbnActualizar.setFont(new java.awt.Font("SimSun", 0, 12)); // NOI18N
+        jbnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/update.png"))); // NOI18N
+        jbnActualizar.setText("Actualizar");
+        jbnActualizar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jbnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jbnActualizarActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("SimSun", 0, 12)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/trashIcon.png"))); // NOI18N
-        jButton2.setText("Eliminar");
-        jButton2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jbnEliminar.setFont(new java.awt.Font("SimSun", 0, 12)); // NOI18N
+        jbnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/trashIcon.png"))); // NOI18N
+        jbnEliminar.setText("Eliminar");
+        jbnEliminar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jbnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbnEliminarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("SimSun", 0, 18)); // NOI18N
         jLabel2.setText("Edita a los alumnos");
@@ -64,7 +91,13 @@ public class GestionarAlumnDirector extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Nombre del alumno:");
 
-        jLabel3.setText("Edad:");
+        jLabel3.setText("Plan:");
+
+        jLabel4.setText("Edad:");
+
+        jLabel5.setText("Saldo pendiente:");
+
+        jLabel6.setText("Contraseña");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -73,47 +106,96 @@ public class GestionarAlumnDirector extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel3))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel6))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
-                    .addComponent(jTextField1))
-                .addGap(0, 45, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jtfNombreAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 45, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jtfContraseña, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtfPlan, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtfEdad, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtfSaldoPendiente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE))
+                        .addContainerGap(45, Short.MAX_VALUE))))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(10, 10, 10)
+                    .addComponent(jLabel4)
+                    .addContainerGap(366, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jtfNombreAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(13, 13, 13)
+                        .addComponent(jtfEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jtfPlan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel5))
+                    .addComponent(jtfSaldoPendiente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addContainerGap(34, Short.MAX_VALUE))
+                    .addComponent(jtfContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addGap(0, 7, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(80, 80, 80)
+                    .addComponent(jLabel4)
+                    .addContainerGap(163, Short.MAX_VALUE)))
         );
+
+        jbnBuscar.setText("Buscar");
+        jbnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbnBuscarActionPerformed(evt);
+            }
+        });
+
+        jbnAgregar.setText("Agregar");
+        jbnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbnAgregarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 12, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(117, 117, 117))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbnActualizar)
+                    .addComponent(jbnAgregar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbnBuscar)
+                    .addComponent(jbnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,33 +203,138 @@ public class GestionarAlumnDirector extends javax.swing.JInternalFrame {
                 .addGap(16, 16, 16)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addGap(19, 19, 19))
+                    .addComponent(jbnActualizar)
+                    .addComponent(jbnEliminar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbnBuscar)
+                    .addComponent(jbnAgregar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jbnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbnActualizarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        if (idAlumnoActual == -1) {
+            JOptionPane.showMessageDialog(this, "Primero busca un alumno para actualizar");
+            return;
+        }
+
+        try {
+            String nombre = jtfNombreAlumno.getText();
+            int edad = Integer.parseInt(jtfEdad.getText());
+            String plan = jtfPlan.getText();
+            double saldo = Double.parseDouble(jtfSaldoPendiente.getText());
+
+            boolean exito = CG.A.Actualizar(edad, plan,saldo,idAlumnoActual, nombre, CG.getUsuarioSesion().getContraseña());
+
+            if (exito) {
+                JOptionPane.showMessageDialog(this, "Alumno actualizado");
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo actualizar");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Datos inválidos");
+        }
+    }//GEN-LAST:event_jbnActualizarActionPerformed
+
+    private void jbnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbnBuscarActionPerformed
+        // TODO add your handling code here:
+           String nombre = jtfNombreAlumno.getText().trim();
+
+        if (nombre.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingresa el nombre del alumno a buscar");
+            return;
+        }
+
+        Alumno alumno = CG.A.buscarPorNombre(nombre);
+
+        if (alumno == null) {
+            JOptionPane.showMessageDialog(this, "No se encontró el alumno");
+            return;
+        }
+
+        idAlumnoActual = alumno.getId();
+        
+        jtfNombreAlumno.setText(alumno.getNombre());
+        jtfEdad.setText(String.valueOf(alumno.getEdad()));
+        jtfPlan.setText(alumno.getPlanInscrito());
+        jtfSaldoPendiente.setText(String.valueOf(alumno.getSaldoPendiente()));
+    }//GEN-LAST:event_jbnBuscarActionPerformed
+
+    private void jbnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbnAgregarActionPerformed
+        // TODO add your handling code here:
+         try {
+            String nombre = jtfNombreAlumno.getText();
+            String contrasena = jtfContraseña.getText();
+            int edad = Integer.parseInt(jtfEdad.getText());
+            String plan = jtfPlan.getText();
+            double saldo = Double.parseDouble(jtfSaldoPendiente.getText());
+
+            boolean exito = CG.A.Agregar(edad, plan, saldo, nombre, contrasena);
+
+            if (exito) {
+                JOptionPane.showMessageDialog(this, "Alumno agregado con éxito");
+            } else {
+                JOptionPane.showMessageDialog(this, "No hay espacio para agregar más alumnos");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Datos inválidos");
+        }
+    }//GEN-LAST:event_jbnAgregarActionPerformed
+
+    private void jbnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbnEliminarActionPerformed
+        // TODO add your handling code here:
+        if (idAlumnoActual == -1) {
+            JOptionPane.showMessageDialog(this, "Primero busca un alumno para eliminar");
+            return;
+        }
+
+        boolean exito = CG.A.Eliminar(idAlumnoActual);
+
+        if (exito) {
+            JOptionPane.showMessageDialog(this, "Alumno eliminado");
+            limpiarCampos();
+            idAlumnoActual = -1;
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo eliminar");
+        }
+    }//GEN-LAST:event_jbnEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JButton jbnActualizar;
+    private javax.swing.JButton jbnAgregar;
+    private javax.swing.JButton jbnBuscar;
+    private javax.swing.JButton jbnEliminar;
+    private javax.swing.JTextField jtfContraseña;
+    private javax.swing.JTextField jtfEdad;
+    private javax.swing.JTextField jtfNombreAlumno;
+    private javax.swing.JTextField jtfPlan;
+    private javax.swing.JTextField jtfSaldoPendiente;
     // End of variables declaration//GEN-END:variables
+
+    private void limpiarCampos() {
+        jtfNombreAlumno.setText("");
+        jtfEdad.setText("");
+        jtfPlan.setText("");
+        jtfSaldoPendiente.setText("");
+    }
 }

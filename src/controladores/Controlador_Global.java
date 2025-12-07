@@ -4,6 +4,8 @@
  */
 package controladores;
 
+import clases.CA_Alumno;
+import clases.CA_Profesor;
 import clases.Clase;
 import clases.Pago;
 import clases.Usuario;
@@ -312,7 +314,50 @@ public class Controlador_Global {
    //
    // **Metodos de Director**
    //
-   
+    public Object[][] getReporteGeneral() {
+
+        int count = 0;
+
+        for (CA_Alumno a : CA_A.Asignaciones) {
+            if (a != null) count++;
+        }
+        for (CA_Profesor p : CA_P.Asignaciones) {
+            if (p != null) count++;
+        }
+
+        Object[][] datos = new Object[count][7];
+        int fila = 0;
+
+        for (CA_Alumno a : CA_A.Asignaciones) {
+            if (a != null) {
+                datos[fila][0] = a.getIdAlumno();
+                datos[fila][1] = A.Buscar(a.getIdAlumno()).getNombre();
+                datos[fila][2] = "ALUMNO";
+                datos[fila][3] = a.getIdClase();
+                Clase claseTemp = C.Buscar(a.getIdClase());
+                datos[fila][4] = (claseTemp != null) ? claseTemp.getNombreClase() : "Clase eliminada";
+                datos[fila][5] = a.getAsistencia();
+                datos[fila][6] = "";
+                fila++;
+            }
+        }
+
+        for (CA_Profesor p : CA_P.Asignaciones) {
+            if (p != null) {
+                datos[fila][0] = p.getIdProfesor();
+                datos[fila][1] = P.Buscar(p.getIdProfesor()).getNombre();
+                datos[fila][2] = "PROFESOR";
+                datos[fila][3] = p.getIdClase();
+                Clase claseTemp = C.Buscar(p.getIdClase());
+                datos[fila][4] = (claseTemp != null) ? claseTemp.getNombreClase() : "Clase eliminada";
+                datos[fila][5] = p.getAsistencia();
+                datos[fila][6] = "";
+                fila++;
+            }
+        }
+
+        return datos;
+    }
    //public boolean GestionarPagos()
    
    //public boolean SupervisarProfesor()
@@ -347,4 +392,80 @@ public class Controlador_Global {
        return null;
        
    } 
+    public Object[][] getClasesDetalladas() {
+
+        int count = 0;
+        for (int i = 0; i < C.Clases.length; i++) {
+            if (C.Clases[i] != null) count++;
+        }
+
+        Object[][] datos = new Object[count][4];
+        int fila = 0;
+
+        for (int i = 0; i < C.Clases.length; i++) {
+            if (C.Clases[i] != null) {
+
+                int idClase = C.Clases[i].getIdClase();
+
+                int alumnosInscritos = 0;
+                for (CA_Alumno a : CA_A.Asignaciones) {
+                    if (a != null && a.getIdClase() == idClase) {
+                        alumnosInscritos++;
+                    }
+                }
+
+                String nombreProfesor = "Sin asignar";
+                for (CA_Profesor p : CA_P.Asignaciones) {
+                    if (p != null && p.getIdClase() == idClase) {
+                        nombreProfesor = P.Buscar(p.getIdProfesor()).getNombre();
+                    }
+                }
+
+                datos[fila][0] = idClase;
+                Clase claseTemp = C.Buscar(idClase);
+                datos[fila][1] = (claseTemp != null) ? claseTemp.getNombreClase() : "Clase eliminada";
+                datos[fila][2] = nombreProfesor;
+                datos[fila][3] = alumnosInscritos;
+
+                fila++;
+            }
+        }
+
+        return datos;
+    }
+    public Object[][] getHistorialAlumno(int idAlumno) {
+
+        int count = 0;
+        for (CA_Alumno a : CA_A.Asignaciones) {
+            if (a != null && a.getIdAlumno() == idAlumno) count++;
+        }
+
+        Object[][] datos = new Object[count][5];
+        int fila = 0;
+
+        for (CA_Alumno a : CA_A.Asignaciones) {
+            if (a != null && a.getIdAlumno() == idAlumno) {
+
+                int idClase = a.getIdClase();
+
+                String profesor = "";
+                for (CA_Profesor p : CA_P.Asignaciones) {
+                    if (p != null && p.getIdClase() == idClase) {
+                        profesor = P.Buscar(p.getIdProfesor()).getNombre();
+                    }
+                }
+
+                datos[fila][0] = idClase;
+                Clase claseTemp = C.Buscar(idClase);
+                datos[fila][1] = (claseTemp != null) ? claseTemp.getNombreClase() : "Clase eliminada";
+                datos[fila][2] = profesor;
+                datos[fila][3] = C.Buscar(idClase).getNivel();
+                datos[fila][4] = a.getAsistencia();
+
+                fila++;
+            }
+        }
+
+        return datos;
+    }
 }

@@ -94,9 +94,9 @@ public class Controlador_Clase {
     
     public Clase Buscar(int IdClase)
     {
-        for(int i = 0; i < Clases.length; i++)
+        for (int i = 0; i < Clases.length; i++)
         {
-            if(Clases[i].getIdClase() == IdClase)
+            if (Clases[i] != null && Clases[i].getIdClase() == IdClase)
             {
                 return Clases[i];
             }
@@ -113,6 +113,14 @@ public class Controlador_Clase {
         return "Clase no encontrada";
     }
     
+    public Clase buscarClasePorNombre(String nombre) {
+        for (int i = 0; i < Clases.length; i++) {
+            if (Clases[i] != null && Clases[i].getNombreClase().equalsIgnoreCase(nombre)) {
+                return Clases[i];
+            }
+        }
+        return null;
+    }
     
     
 }

@@ -4,19 +4,27 @@
  */
 package Intefaz;
 
+import controladores.Controlador_Global;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author junom
  */
 public class ReportesDirector extends javax.swing.JInternalFrame {
-
+    private Controlador_Global CG;
     /**
      * Creates new form ReportesDirector
      */
     public ReportesDirector() {
         initComponents();
     }
-
+    public ReportesDirector(Controlador_Global Cg) {
+    initComponents();
+    this.CG = Cg;
+    cargarReporte(); 
+    }
+ 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,15 +34,41 @@ public class ReportesDirector extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(7, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 12, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -42,5 +76,81 @@ public class ReportesDirector extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarReporte() {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("Tipo");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Clase");
+        modelo.addColumn("Asistencias");
+
+        // ==========================================================
+        // 1. ASIGNACIONES Y ASISTENCIAS DE ALUMNOS (CA_Alumno)
+        // ==========================================================
+        for (int i = 0; i < CG.CA_A.Asignaciones.length; i++) {
+
+            if (CG.CA_A.Asignaciones[i] != null) {
+
+                int idAlumno = CG.CA_A.Asignaciones[i].getIdAlumno();
+                int idClase = CG.CA_A.Asignaciones[i].getIdClase();
+                int asistencias = CG.CA_A.Asignaciones[i].getAsistencia();
+
+                // Buscar alumno
+                String nombreAlumno = "Alumno no encontrado";
+                if (CG.A.Buscar(idAlumno) != null) {
+                    nombreAlumno = CG.A.Buscar(idAlumno).getNombre();
+                }
+
+                // Buscar clase
+                String nombreClase = "Clase no encontrada";
+                if (CG.C.Buscar(idClase) != null) {
+                    nombreClase = CG.C.Buscar(idClase).getNombreClase();
+                }
+
+                modelo.addRow(new Object[]{
+                    "Alumno",
+                    nombreAlumno,
+                    nombreClase,
+                    asistencias
+                });
+            }
+        }
+
+        // ==========================================================
+        // 2. ASIGNACIONES Y ASISTENCIAS DE PROFESORES (CA_Profesor)
+        // ==========================================================
+        for (int i = 0; i < CG.CA_P.Asignaciones.length; i++) {
+
+            if (CG.CA_P.Asignaciones[i] != null) {
+
+                int idProfesor = CG.CA_P.Asignaciones[i].getIdProfesor();
+                int idClase = CG.CA_P.Asignaciones[i].getIdClase();
+                int asistencias = CG.CA_P.Asignaciones[i].getAsistencia();
+
+                // Buscar profesor
+                String nombreProfesor = "Profesor no encontrado";
+                if (CG.P.Buscar(idProfesor) != null) {
+                    nombreProfesor = CG.P.Buscar(idProfesor).getNombre();
+                }
+
+                // Buscar clase
+                String nombreClase = "Clase no encontrada";
+                if (CG.C.Buscar(idClase) != null) {
+                    nombreClase = CG.C.Buscar(idClase).getNombreClase();
+                }
+
+                modelo.addRow(new Object[]{
+                    "Profesor",
+                    nombreProfesor,
+                    nombreClase,
+                    asistencias
+                });
+            }
+        }
+
+        jTable1.setModel(modelo);
+        }
 }

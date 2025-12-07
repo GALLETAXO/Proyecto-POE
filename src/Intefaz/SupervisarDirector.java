@@ -21,10 +21,10 @@ public class SupervisarDirector extends javax.swing.JInternalFrame {
         initComponents();
     }
     public SupervisarDirector(Controlador_Global cg) {
-    this.CG = cg;
-    initComponents();
-    cargarTablas();
-}
+        this.CG = cg;
+        initComponents();
+        cargarTablas();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,6 +46,11 @@ public class SupervisarDirector extends javax.swing.JInternalFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtableAlumnos = new javax.swing.JTable();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         jLabel1.setFont(new java.awt.Font("SimSun", 0, 18)); // NOI18N
         jLabel1.setText("Supervisar");

@@ -49,9 +49,9 @@ public class DirectorUI extends javax.swing.JFrame {
         jMenu6 = new javax.swing.JMenu();
         vtnReportesDirector = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jmiGestionarClases = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
-        vtnEliminarADirector = new javax.swing.JMenuItem();
+        vtnGestionarAlumnos = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -114,25 +114,25 @@ public class DirectorUI extends javax.swing.JFrame {
 
         jMenu7.setText("Clases");
 
-        jMenuItem4.setText("Gestionar");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        jmiGestionarClases.setText("Gestionar");
+        jmiGestionarClases.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                jmiGestionarClasesActionPerformed(evt);
             }
         });
-        jMenu7.add(jMenuItem4);
+        jMenu7.add(jmiGestionarClases);
 
         jMenuBar1.add(jMenu7);
 
         jMenu8.setText("Alumnnos");
 
-        vtnEliminarADirector.setText("Gestionar");
-        vtnEliminarADirector.addActionListener(new java.awt.event.ActionListener() {
+        vtnGestionarAlumnos.setText("Gestionar");
+        vtnGestionarAlumnos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                vtnEliminarADirectorActionPerformed(evt);
+                vtnGestionarAlumnosActionPerformed(evt);
             }
         });
-        jMenu8.add(vtnEliminarADirector);
+        jMenu8.add(vtnGestionarAlumnos);
 
         jMenuBar1.add(jMenu8);
 
@@ -160,23 +160,32 @@ public class DirectorUI extends javax.swing.JFrame {
 
     private void vtnSupervisarDirectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vtnSupervisarDirectorActionPerformed
         // TODO add your handling code here:
+        ReportesDirector  ventana = new ReportesDirector(GC);
+        jDesktopPane1.add(ventana);
+        ventana.show();
         
     }//GEN-LAST:event_vtnSupervisarDirectorActionPerformed
 
     private void vtnReportesDirectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vtnReportesDirectorActionPerformed
         // TODO add your handling code here:
-        SupervisarDirector  ventanaPagoAlumno = new SupervisarDirector(GC);
-        jDesktopPane1.add(ventanaPagoAlumno);
-        ventanaPagoAlumno.show();
+        SupervisarDirector  ventana = new SupervisarDirector(GC);
+        jDesktopPane1.add(ventana);
+        ventana.show();
     }//GEN-LAST:event_vtnReportesDirectorActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void jmiGestionarClasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiGestionarClasesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+        GestionarClasesDirector  ventanaGestionarClase = new GestionarClasesDirector(GC);
+        jDesktopPane1.add(ventanaGestionarClase);
+        ventanaGestionarClase.show();
+    }//GEN-LAST:event_jmiGestionarClasesActionPerformed
 
-    private void vtnEliminarADirectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vtnEliminarADirectorActionPerformed
+    private void vtnGestionarAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vtnGestionarAlumnosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_vtnEliminarADirectorActionPerformed
+        GestionarAlumnDirector  ventanaGestionarClase = new GestionarAlumnDirector(GC);
+        jDesktopPane1.add(ventanaGestionarClase);
+        ventanaGestionarClase.show();
+    }//GEN-LAST:event_vtnGestionarAlumnosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -215,8 +224,8 @@ public class DirectorUI extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem vtnEliminarADirector;
+    private javax.swing.JMenuItem jmiGestionarClases;
+    private javax.swing.JMenuItem vtnGestionarAlumnos;
     private javax.swing.JMenuItem vtnPagosDirector;
     private javax.swing.JMenuItem vtnReportesDirector;
     private javax.swing.JMenuItem vtnSupervisarDirector;

@@ -4,19 +4,27 @@
  */
 package Intefaz;
 
+import clases.Clase;
+import controladores.Controlador_Global;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author junom
  */
 public class GestionarClasesDirector extends javax.swing.JInternalFrame {
-
+    private Controlador_Global CG;
     /**
      * Creates new form GestionarAlumnos
      */
     public GestionarClasesDirector() {
         initComponents();
     }
-
+    public GestionarClasesDirector(Controlador_Global cg) {
+        this.CG = cg;
+        initComponents();
+    }
+    int idClaseActual = -1;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,37 +35,57 @@ public class GestionarClasesDirector extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        jbnActualizar = new javax.swing.JButton();
+        jbnEliminar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jtfNombreClase = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        jtfCupoMax = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jtfHorario = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jtfNivel = new javax.swing.JTextField();
+        jbnBuscar = new javax.swing.JButton();
+        jbnAgregar = new javax.swing.JButton();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         jLabel2.setFont(new java.awt.Font("SimSun", 0, 18)); // NOI18N
-        jLabel2.setText("Edita las alumnos");
+        jLabel2.setText("Editar clases");
 
-        jButton2.setFont(new java.awt.Font("SimSun", 0, 12)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/update.png"))); // NOI18N
-        jButton2.setText("Actualizar");
-        jButton2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jbnActualizar.setFont(new java.awt.Font("SimSun", 0, 12)); // NOI18N
+        jbnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/update.png"))); // NOI18N
+        jbnActualizar.setText("Actualizar");
+        jbnActualizar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jbnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jbnActualizarActionPerformed(evt);
             }
         });
 
-        jButton6.setFont(new java.awt.Font("SimSun", 0, 12)); // NOI18N
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/trashIcon.png"))); // NOI18N
-        jButton6.setText("Eliminar");
-        jButton6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jbnEliminar.setFont(new java.awt.Font("SimSun", 0, 12)); // NOI18N
+        jbnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/trashIcon.png"))); // NOI18N
+        jbnEliminar.setText("Eliminar");
+        jbnEliminar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jbnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbnEliminarActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setText("Nombre de clase:");
 
         jLabel3.setText("Cupo Maximo:");
+
+        jLabel4.setText("Nivel:");
+
+        jLabel5.setText("Horario:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -66,13 +94,19 @@ public class GestionarClasesDirector extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel3)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtfHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtfNombreClase, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtfNivel, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtfCupoMax, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -80,32 +114,64 @@ public class GestionarClasesDirector extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jtfNombreClase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtfNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jtfHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(44, Short.MAX_VALUE))
+                    .addComponent(jtfCupoMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
+
+        jbnBuscar.setText("Buscar");
+        jbnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbnBuscarActionPerformed(evt);
+            }
+        });
+
+        jbnAgregar.setText("Agregar");
+        jbnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbnAgregarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(106, 106, 106))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(143, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(106, 106, 106))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addGap(6, 6, 6)
+                                    .addComponent(jbnAgregar)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jbnBuscar)
+                                    .addGap(50, 50, 50))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jbnActualizar)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jbnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(33, 33, 33)))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,29 +180,132 @@ public class GestionarClasesDirector extends javax.swing.JInternalFrame {
                 .addComponent(jLabel2)
                 .addGap(30, 30, 30)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton6))
-                .addGap(30, 30, 30))
+                    .addComponent(jbnActualizar)
+                    .addComponent(jbnEliminar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbnBuscar)
+                    .addComponent(jbnAgregar)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jbnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbnActualizarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        if (idClaseActual == -1) {
+        JOptionPane.showMessageDialog(this, "Primero busca una clase para actualizar");
+        return;
+        }
+
+        try {
+            String nombre = jtfNombreClase.getText();
+            String nivel = jtfNivel.getText();
+            String horario = jtfHorario.getText();
+            int cupo = Integer.parseInt(jtfCupoMax.getText());
+
+            boolean exito = CG.C.Actualizar(idClaseActual, nombre, nivel, horario, cupo);
+
+            if (exito) {
+                JOptionPane.showMessageDialog(this, "Clase actualizada con éxito");
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al actualizar la clase");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Datos inválidos");
+        }
+    }//GEN-LAST:event_jbnActualizarActionPerformed
+
+    private void jbnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbnBuscarActionPerformed
+        // TODO add your handling code here:
+        String nombre = jtfNombreClase.getText().trim();
+
+    if (nombre.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Ingresa el nombre de la clase a buscar");
+        return;
+    }
+
+    Clase clase = CG.C.buscarClasePorNombre(nombre);
+
+    if (clase == null) {
+        JOptionPane.showMessageDialog(this, "No se encontró la clase");
+        return;
+    }
+
+    // Guardar ID para actualizar o eliminar
+    idClaseActual = clase.getIdClase();
+
+    // Llenar campos
+    jtfNombreClase.setText(clase.getNombreClase());
+    jtfNivel.setText(clase.getNivel());
+    jtfHorario.setText(clase.getHorario());
+    jtfCupoMax.setText(String.valueOf(clase.getCupoMaximo()));
+    }//GEN-LAST:event_jbnBuscarActionPerformed
+
+    private void jbnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbnAgregarActionPerformed
+        // TODO add your handling code here:
+        try {
+        String nombre = jtfNombreClase.getText();
+        String nivel = jtfNivel.getText();
+        String horario = jtfHorario.getText();
+        int cupo = Integer.parseInt(jtfCupoMax.getText());
+
+        boolean exito = CG.C.Agregar(nombre, nivel, horario, cupo);
+
+        if (exito) {
+            JOptionPane.showMessageDialog(this, "Clase agregada con éxito");
+        } else {
+            JOptionPane.showMessageDialog(this, "No hay espacio para más clases");
+        }
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Datos inválidos");
+    }
+    }//GEN-LAST:event_jbnAgregarActionPerformed
+
+    private void jbnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbnEliminarActionPerformed
+        // TODO add your handling code here:
+        if (idClaseActual == -1) {
+            JOptionPane.showMessageDialog(this, "Primero busca una clase para eliminar");
+            return;
+        }
+
+        boolean exito = CG.C.Eliminar(idClaseActual);
+
+        if (exito) {
+            JOptionPane.showMessageDialog(this, "Clase eliminada");
+            limpiarCampos();
+            idClaseActual = -1;
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo eliminar");
+        }
+    }//GEN-LAST:event_jbnEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JButton jbnActualizar;
+    private javax.swing.JButton jbnAgregar;
+    private javax.swing.JButton jbnBuscar;
+    private javax.swing.JButton jbnEliminar;
+    private javax.swing.JTextField jtfCupoMax;
+    private javax.swing.JTextField jtfHorario;
+    private javax.swing.JTextField jtfNivel;
+    private javax.swing.JTextField jtfNombreClase;
     // End of variables declaration//GEN-END:variables
+
+    private void limpiarCampos() {
+        jtfNombreClase.setText("");
+        jtfNivel.setText("");
+        jtfHorario.setText("");
+        jtfCupoMax.setText("");
+    }
 }

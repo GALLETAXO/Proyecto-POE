@@ -112,5 +112,13 @@ public class Controlador_Alumno {
         }
         return null;
     } 
-    
+    public Alumno buscarPorNombre(String nombre) {
+        for (int i = 0; i < Alumnos.length; i++) {
+            if (Alumnos[i] != null &&
+                Alumnos[i].getNombre().equalsIgnoreCase(nombre)) {
+                return Alumnos[i];
+            }
+        }
+        return null;
+    }
 }
