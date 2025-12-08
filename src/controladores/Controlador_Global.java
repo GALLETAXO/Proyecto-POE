@@ -1,0 +1,471 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package controladores;
+
+import clases.CA_Alumno;
+import clases.CA_Profesor;
+import clases.Clase;
+import clases.Pago;
+import clases.Usuario;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author Gael
+ */
+public class Controlador_Global {
+    public Usuario[] Usuarios;
+    public Usuario US;
+    public Controlador_Alumno A;
+    public Controlador_CA_Alumno CA_A; //CA significa Clase asignada
+    public Controlador_CA_Profesor CA_P;
+    public Controlador_Clase C;
+    public Controlador_Director D;
+    public Controlador_Pago Pg;
+    public Controlador_Profesor P;
+    public Controlador_Usuario U;
+
+    public Usuario getUsuarioSesion() {
+        return US;
+    }
+
+    public void setUsuarioSesion(Usuario UsuarioSesion) {
+        this.US = UsuarioSesion;
+    }
+
+    public Controlador_Alumno getA() {
+        return A;
+    }
+
+    public void setA(Controlador_Alumno A) {
+        this.A = A;
+    }
+
+    public Controlador_CA_Alumno getCA() {
+        return CA_A;
+    }
+
+    public void setCA(Controlador_CA_Alumno CA_A) {
+        this.CA_A = CA_A;
+    }
+
+    public Controlador_CA_Profesor getCA_P() {
+        return CA_P;
+    }
+
+    public void setCA_P(Controlador_CA_Profesor CA_P) {
+        this.CA_P = CA_P;
+    }
+
+    public Controlador_Clase getC() {
+        return C;
+    }
+
+    public void setC(Controlador_Clase C) {
+        this.C = C;
+    }
+
+    public Controlador_Director getD() {
+        return D;
+    }
+
+    public void setD(Controlador_Director D) {
+        this.D = D;
+    }
+
+    public Controlador_Pago getPg() {
+        return Pg;
+    }
+
+    public void setPg(Controlador_Pago Pg) {
+        this.Pg = Pg;
+    }
+
+    public Controlador_Profesor getP() {
+        return P;
+    }
+
+    public void setP(Controlador_Profesor P) {
+        this.P = P;
+    }
+
+    public Controlador_Global() {
+        this.US = new Usuario();
+        this.A = new Controlador_Alumno();
+        this.CA_A = new Controlador_CA_Alumno();
+        this.CA_P = new Controlador_CA_Profesor();
+        this.C = new Controlador_Clase();
+        this.D = new Controlador_Director();
+        this.Pg = new Controlador_Pago();
+        this.P = new Controlador_Profesor();
+        this.U = new Controlador_Usuario();
+        
+    }
+
+    public Controlador_Global(Controlador_Alumno A, Controlador_CA_Alumno CA_A, Controlador_CA_Profesor CA_P, Controlador_Clase C, Controlador_Director D, Controlador_Pago Pg, Controlador_Profesor P, Usuario UsuarioSesion) {
+        this.A = A;
+        this.CA_A = CA_A;
+        this.CA_P = CA_P;
+        this.C = C;
+        this.D = D;
+        this.Pg = Pg;
+        this.P = P;
+        this.US = UsuarioSesion;
+    }
+   //
+  //Metodos usuario
+    
+    public Controlador_Usuario getU() { return U; }
+    
+    public void setU(Controlador_Usuario U) { this.U = U; }
+    
+    public Usuario BuscarUsuario(int id) {
+        return U.Buscar(id);
+    }
+    
+    
+    
+   //
+   // **Metodos Alumno**
+   //
+   public boolean ReservarClase(int IdClase)
+   {
+       return CA_A.Agregar(IdClase, US.getId(), 0);
+   }
+   
+   public boolean RealizarPago(double Monto)
+   {
+       LocalDateTime fecha = LocalDateTime.now();
+       DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+       String FechaEnFormato = fecha.format(formato);
+       return Pg.Agregar(US.getId(), Monto, FechaEnFormato, "Pagado");
+   }
+   
+   public Object[][] ConsultarClasesDisponibles()
+   {
+       return C.Mostrar();
+   }
+   
+   public Object[][] verHistorialAsistencias()
+   {
+       Object[][] datos = new Object[CA_A.Asignaciones.length][5];
+        for(int i = 0; i < CA_A.Asignaciones.length; i ++)
+        {
+            if(CA_A.Asignaciones[i].getIdAlumno() == US.getId())
+            {
+                datos[i][0] = CA_A.Asignaciones[i].getIdClase();
+                datos[i][1] = C.Buscar(CA_A.Asignaciones[i].getIdClase()).getNombreClase();
+                datos[i][2] = C.Buscar(CA_A.Asignaciones[i].getIdClase()).getNivel();
+                datos[i][3] = C.Buscar(CA_A.Asignaciones[i].getIdClase()).getHorario();
+                datos[i][4] = CA_A.Asignaciones[i].getAsistencia();
+            }  
+        } 
+        
+        return datos;
+       
+   }
+   
+   //
+   // **Metodos de clase**
+   //
+   
+   public boolean ActualizarDatos(int Edad, String PlanInscrito, Double SaldoPendiente, String Nombre, String Contraseña)
+   {
+       return A.Actualizar(Edad, PlanInscrito, SaldoPendiente, US.getId(), Nombre, Contraseña);
+   }
+   
+   public boolean asignarProfesor(int IdProfesor, int idClase)
+   {
+       return CA_P.Agregar(IdProfesor, idClase, 0);
+   }
+   
+   public boolean AgregarAlumno(int IdAlumno, int idClase)
+   {
+        return CA_P.Agregar(IdAlumno, idClase, 0);
+   }
+     
+   public boolean RegistrarAsistencia(int idAlumno, int idClase)
+   {
+       for(int i = 0; i < CA_A.Asignaciones.length; i++)
+       {
+           if(CA_A.Asignaciones[i].getIdAlumno() == idAlumno && CA_A.Asignaciones[i].getIdClase() == idClase)
+           {
+               CA_A.Asignaciones[i].SumarAsistecia();
+               return true;
+           }
+       }
+       return false;
+   }
+   
+   public Object[][] ConsultarListaAlumnos(int IdClase)
+   {
+       Object[][] datos = new Object[CA_A.Asignaciones.length][5];
+        for(int i = 0; i < CA_A.Asignaciones.length; i ++)
+        {
+            if(CA_A.Asignaciones[i].getIdClase() == IdClase)
+            {
+                datos[i][0] = CA_A.Asignaciones[i].getIdClase();
+                datos[i][1] = A.Buscar(CA_A.Asignaciones[i].getIdAlumno()).getNombre();
+                datos[i][2] = A.Buscar(CA_A.Asignaciones[i].getIdAlumno()).getEdad();
+                datos[i][3] = A.Buscar(CA_A.Asignaciones[i].getIdAlumno()).getPlanInscrito();
+                datos[i][4] = CA_A.Asignaciones[i].getAsistencia();
+            }  
+        } 
+        
+        return datos;
+   }
+   
+   public Clase mostrarDetalles(int IdClase)
+   {
+       return C.Buscar(IdClase);
+   }
+   
+   //
+   // **Metodos de Profesor**
+   //
+   
+   public boolean MarcarAsistencia(int idAlumno, int idClase)
+   {
+       for(int i = 0; i < CA_A.Asignaciones.length; i++)
+       {
+           if(CA_A.Asignaciones[i].getIdAlumno() == idAlumno && CA_A.Asignaciones[i].getIdClase() == idClase)
+           {
+               CA_A.Asignaciones[i].SumarAsistecia();
+               return true;
+           }
+       }
+       return false;
+   }
+   
+   public Object[][] obtenerClasesProfesor(int idProfesor) {
+    return CA_P.MostrarPorProfesor(idProfesor);
+    }
+   public Object[][] ConsultarClasesAsignadas()
+   {
+       Object[][] datos = new Object[CA_A.Asignaciones.length][5];
+        for(int i = 0; i < CA_A.Asignaciones.length; i ++)
+        {
+            if(CA_P.Asignaciones[i].getIdProfesor()== US.getId())
+            {
+                datos[i][0] = CA_P.Asignaciones[i].getIdClase();
+                datos[i][1] = C.Buscar(CA_P.Asignaciones[i].getIdClase()).getNombreClase();
+                datos[i][2] = C.Buscar(CA_P.Asignaciones[i].getIdClase()).getNivel();
+                datos[i][3] = C.Buscar(CA_P.Asignaciones[i].getIdClase()).getHorario();
+                datos[i][4] = C.Buscar(CA_P.Asignaciones[i].getIdClase()).getCupoMaximo();
+            }  
+        } 
+        return datos;
+   }
+   
+   public boolean ActualizarDatos(String Especialidad, double SueldoPorClase, int TotalClasesImpartidas, String Nombre, String Contraseña)
+   {
+       return P.Actualizar(Especialidad, SueldoPorClase, TotalClasesImpartidas, US.getId(), Nombre, Contraseña);
+   }
+   
+   //public boolean CalcularPagoTotal()
+   
+   //public boolean ReportarClase()
+   
+   //
+   //**Metodos de Pago**
+   //
+   
+   public boolean RegistrarPago(int IdPago, int IdAlumno, double Monto, String Estado)
+   {
+       LocalDateTime fecha = LocalDateTime.now();
+       DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+       String FechaEnFormato = fecha.format(formato);
+       return Pg.Agregar(IdAlumno, Monto, FechaEnFormato, Estado);
+   }
+   
+   //public boolean ValidarPago()
+   
+   public Pago MostrarDetalles(int IdPago)
+   {
+       return Pg.Buscar(IdPago);
+   }
+   
+   public boolean ActualizarEstado(int IdPago, String Estado)
+   {
+       return Pg.ActualizarEstado(IdPago, Estado);
+   }
+   
+   public String GerenerarRecibo(int IdPago)
+   {
+       for(int i = 0; i < Pg.Pagos.length; i++)
+        {
+            if(Pg.Pagos[i].getIdPago() == IdPago)
+            {
+                return "Recibo de pago \n " +
+                       "Fecha: " + Pg.Pagos[i].getFecha() + "\n" +
+                       "Id del Alumno: " + Pg.Pagos[i].getIdAlumno() + "\n" + 
+                       "Nombre del Alumno: " + A.Buscar(Pg.Pagos[i].getIdAlumno()).getNombre() + "\n" +
+                       "Momto pagado: " + Pg.Pagos[i].getMonto()+ "\n";
+            }
+        }
+        return null;
+   }
+   
+   //
+   // **Metodos de Director**
+   //
+    public Object[][] getReporteGeneral() {
+
+        int count = 0;
+
+        for (CA_Alumno a : CA_A.Asignaciones) {
+            if (a != null) count++;
+        }
+        for (CA_Profesor p : CA_P.Asignaciones) {
+            if (p != null) count++;
+        }
+
+        Object[][] datos = new Object[count][7];
+        int fila = 0;
+
+        for (CA_Alumno a : CA_A.Asignaciones) {
+            if (a != null) {
+                datos[fila][0] = a.getIdAlumno();
+                datos[fila][1] = A.Buscar(a.getIdAlumno()).getNombre();
+                datos[fila][2] = "ALUMNO";
+                datos[fila][3] = a.getIdClase();
+                Clase claseTemp = C.Buscar(a.getIdClase());
+                datos[fila][4] = (claseTemp != null) ? claseTemp.getNombreClase() : "Clase eliminada";
+                datos[fila][5] = a.getAsistencia();
+                datos[fila][6] = "";
+                fila++;
+            }
+        }
+
+        for (CA_Profesor p : CA_P.Asignaciones) {
+            if (p != null) {
+                datos[fila][0] = p.getIdProfesor();
+                datos[fila][1] = P.Buscar(p.getIdProfesor()).getNombre();
+                datos[fila][2] = "PROFESOR";
+                datos[fila][3] = p.getIdClase();
+                Clase claseTemp = C.Buscar(p.getIdClase());
+                datos[fila][4] = (claseTemp != null) ? claseTemp.getNombreClase() : "Clase eliminada";
+                datos[fila][5] = p.getAsistencia();
+                datos[fila][6] = "";
+                fila++;
+            }
+        }
+
+        return datos;
+    }
+   //public boolean GestionarPagos()
+   
+   //public boolean SupervisarProfesor()
+   
+   //public boolean VerReporteGerenal()
+   
+   public boolean RegistrarClase(int IdClase, String NombreClase, String Nivel, String Horario, int CupoMaximo)
+   {
+        return C.Agregar(NombreClase, Nivel, Horario, CupoMaximo);
+   }
+   
+   public boolean EliminarAlumno(int IdAlumno)
+   {
+       return A.Eliminar(IdAlumno);
+   }
+   
+   public Usuario IniciarSesion(int id)
+   {
+       if(A.Buscar(id) != null)
+       {
+           return A.Buscar(id);
+       }
+       else if(D.Buscar(id) != null)
+       {
+           return D.Buscar(id);
+       }
+       else if(P.Buscar(id) != null)
+       { 
+           return P.Buscar(id);
+       }
+       
+       return null;
+       
+   } 
+    public Object[][] getClasesDetalladas() {
+
+        int count = 0;
+        for (int i = 0; i < C.Clases.length; i++) {
+            if (C.Clases[i] != null) count++;
+        }
+
+        Object[][] datos = new Object[count][4];
+        int fila = 0;
+
+        for (int i = 0; i < C.Clases.length; i++) {
+            if (C.Clases[i] != null) {
+
+                int idClase = C.Clases[i].getIdClase();
+
+                int alumnosInscritos = 0;
+                for (CA_Alumno a : CA_A.Asignaciones) {
+                    if (a != null && a.getIdClase() == idClase) {
+                        alumnosInscritos++;
+                    }
+                }
+
+                String nombreProfesor = "Sin asignar";
+                for (CA_Profesor p : CA_P.Asignaciones) {
+                    if (p != null && p.getIdClase() == idClase) {
+                        nombreProfesor = P.Buscar(p.getIdProfesor()).getNombre();
+                    }
+                }
+
+                datos[fila][0] = idClase;
+                Clase claseTemp = C.Buscar(idClase);
+                datos[fila][1] = (claseTemp != null) ? claseTemp.getNombreClase() : "Clase eliminada";
+                datos[fila][2] = nombreProfesor;
+                datos[fila][3] = alumnosInscritos;
+
+                fila++;
+            }
+        }
+
+        return datos;
+    }
+    public Object[][] getHistorialAlumno(int idAlumno) {
+
+        int count = 0;
+        for (CA_Alumno a : CA_A.Asignaciones) {
+            if (a != null && a.getIdAlumno() == idAlumno) count++;
+        }
+
+        Object[][] datos = new Object[count][5];
+        int fila = 0;
+
+        for (CA_Alumno a : CA_A.Asignaciones) {
+            if (a != null && a.getIdAlumno() == idAlumno) {
+
+                int idClase = a.getIdClase();
+
+                String profesor = "";
+                for (CA_Profesor p : CA_P.Asignaciones) {
+                    if (p != null && p.getIdClase() == idClase) {
+                        profesor = P.Buscar(p.getIdProfesor()).getNombre();
+                    }
+                }
+
+                datos[fila][0] = idClase;
+                Clase claseTemp = C.Buscar(idClase);
+                datos[fila][1] = (claseTemp != null) ? claseTemp.getNombreClase() : "Clase eliminada";
+                datos[fila][2] = profesor;
+                datos[fila][3] = C.Buscar(idClase).getNivel();
+                datos[fila][4] = a.getAsistencia();
+
+                fila++;
+            }
+        }
+
+        return datos;
+    }
+}
