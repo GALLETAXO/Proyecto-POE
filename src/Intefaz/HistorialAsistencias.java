@@ -129,11 +129,26 @@ public class HistorialAsistencias extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void cargarTabla() {
-        Object[][] datos = CG.verHistorialAsistencias();
+        // Obtenemos los datos del historial de asistencias del alumno actual
+        Object[][] datos = CG.getHistorialAlumno(CG.getUsuarioSesion().getId());
+
+        // Filtramos filas nulas (por si acaso)
+        int filasValidas = 0;
+        for (Object[] fila : datos) {
+            if (fila[0] != null) filasValidas++;
+        }
+
+        Object[][] datosFiltrados = new Object[filasValidas][5];
+        int filaIndex = 0;
+        for (Object[] fila : datos) {
+            if (fila[0] != null) {
+                datosFiltrados[filaIndex++] = fila;
+            }
+        }
 
         String[] columnas = {"ID Clase", "Nombre Clase", "Nivel", "Horario", "Asistencias"};
 
-        DefaultTableModel modelo = new DefaultTableModel(datos, columnas) {
+        DefaultTableModel modelo = new DefaultTableModel(datosFiltrados, columnas) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false; 

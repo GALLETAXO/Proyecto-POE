@@ -4,18 +4,37 @@
  */
 package Intefaz;
 
+import clases.Pago;
+import clases.Profesor;
+import controladores.Controlador_Global;
+import controladores.Controlador_Profesor;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.time.LocalDate;
 
 /**
  *
  * @author junom
  */
 public class PagoDirector extends javax.swing.JInternalFrame {
-
+    private Controlador_Global CG;
+    private Integer idPagoSeleccionado = null;
     /**
      * Creates new form PagoDirector
      */
     public PagoDirector() {
         initComponents();
+    }
+    public PagoDirector(Controlador_Global CG) {
+        this.CG = CG;
+        initComponents();
+        jbnRegistrar.addActionListener(this::jbnRegistrarActionPerformed);
+        jButton1.addActionListener(this::jButton1ActionPerformed);
+
+        // Inicializar datos de la interfaz
+        actualizarIngresos();
+        mostrarProfesores();
     }
    
 
@@ -81,6 +100,11 @@ public class PagoDirector extends javax.swing.JInternalFrame {
         jbnActualizar.setFont(new java.awt.Font("SimSun", 0, 12)); // NOI18N
         jbnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         jbnActualizar.setText("Actualizar");
+        jbnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbnActualizarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("SimSun", 0, 14)); // NOI18N
         jLabel2.setText("Monto:");
@@ -161,7 +185,7 @@ public class PagoDirector extends javax.swing.JInternalFrame {
                             .addComponent(jLabel3)
                             .addComponent(jrbPagado)
                             .addComponent(jrbPendiente))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbnActualizar)
                     .addComponent(jbnRegistrar))
@@ -194,6 +218,11 @@ public class PagoDirector extends javax.swing.JInternalFrame {
         jButton1.setFont(new java.awt.Font("SimSun", 0, 12)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Calcular");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jlbSueldos.setText("suelto calculado");
 
@@ -330,17 +359,53 @@ public class PagoDirector extends javax.swing.JInternalFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jtPanePagos, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addComponent(jtPanePagos, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbnRegistrarActionPerformed
-        // TODO add your handling code here:
+         try {
+            if (jtfMontoPagos.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ingresa un monto");
+                return;
+            }
+            double monto = Double.parseDouble(jtfMontoPagos.getText());
+            String estado = jrbPagado.isSelected() ? "Pagado" : "Pendiente";
+            String fecha = LocalDate.now().toString();
 
+            boolean exito = CG.Pg.Agregar(1, monto, fecha, estado); // IdAlumno fijo por ahora
+            if (exito) {
+                JOptionPane.showMessageDialog(this, "Pago registrado correctamente");
+                jtfMontoPagos.setText("");
+                buttonGroup1.clearSelection();
+                actualizarIngresos();
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo registrar el pago");
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Monto inválido");
+        }
     }//GEN-LAST:event_jbnRegistrarActionPerformed
+
+    private void jbnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbnActualizarActionPerformed
+   
+    }//GEN-LAST:event_jbnActualizarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // Ejemplo simple: sueldo por cada pago "Pagado"
+        int pagosContados = 0;
+        for (Pago p : CG.Pg.getPagos()) {
+            if (p != null && "Pagado".equalsIgnoreCase(p.getEstado())) {
+                pagosContados++;
+            }
+        }
+        double sueldo = pagosContados * 500;
+        jlbSueldos.setText("Sueldos calculados: $" + sueldo);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -373,11 +438,38 @@ public class PagoDirector extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtfMontoPagos;
     // End of variables declaration//GEN-END:variables
 
-    private void cargarProfesoresList() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private void limpiarCamposPago() {
+        jtfMontoPagos.setText("");
+        buttonGroup1.clearSelection();
+        idPagoSeleccionado = null;
     }
 
-    private void calcularIngresosTotales() {
+    private void cargarProfesores() {
+
+        // Creamos un arreglo de Strings con los nombres de los profesores no nulos
+        DefaultListModel<String> modelo = new DefaultListModel<>();
+        for (Profesor prof : CG.P.getProfesores()) {
+            if (prof != null) {
+                modelo.addElement(prof.getNombre() + " - " + prof.getEspecialidad());
+            }
+        }
+
+        jlistProfesores.setModel(modelo);
+    }
+
+    private void actualizarIngresos() {
+        double total = 0;
+        for (Pago p : CG.Pg.getPagos()) {
+            if (p != null && "Pagado".equalsIgnoreCase(p.getEstado())) {
+                total += p.getMonto();
+            }
+        }
+        jtfIngresos.setText(String.valueOf(total));
+    }
+
+    private void mostrarProfesores() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+
 }

@@ -73,8 +73,8 @@
                   <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jtPanePagos" min="-2" pref="199" max="-2" attributes="0"/>
-              <EmptySpace pref="98" max="32767" attributes="0"/>
+              <Component id="jtPanePagos" min="-2" pref="266" max="-2" attributes="0"/>
+              <EmptySpace pref="31" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -171,7 +171,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="7" max="32767" attributes="0"/>
+                      <EmptySpace pref="74" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jbnActualizar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jbnRegistrar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -212,6 +212,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Actualizar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbnActualizarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="jtfMontoPagos">
             </Component>
@@ -444,6 +447,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Calcular"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jlbSueldos">
               <Properties>
