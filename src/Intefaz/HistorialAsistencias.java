@@ -42,6 +42,11 @@ public class HistorialAsistencias extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
         jLabel1.setFont(new java.awt.Font("Segoe Script", 0, 18)); // NOI18N
@@ -146,7 +151,7 @@ public class HistorialAsistencias extends javax.swing.JInternalFrame {
             }
         }
 
-        String[] columnas = {"ID Clase", "Nombre Clase", "Nivel", "Horario", "Asistencias"};
+        String[] columnas = {"ID Clase", "Nombre Clase", "Profesor", "Nivel", "Asistencias"};
 
         DefaultTableModel modelo = new DefaultTableModel(datosFiltrados, columnas) {
             @Override

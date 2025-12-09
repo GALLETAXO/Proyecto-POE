@@ -47,6 +47,7 @@ public class AlumnosUI extends javax.swing.JFrame {
         vtnHistorialAlumnos = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         vtnActualizarAlumnos = new javax.swing.JMenuItem();
+        Cerrar = new javax.swing.JMenu();
 
         jMenu1.setText("jMenu1");
 
@@ -60,11 +61,11 @@ public class AlumnosUI extends javax.swing.JFrame {
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 403, Short.MAX_VALUE)
+            .addGap(0, 658, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 271, Short.MAX_VALUE)
+            .addGap(0, 461, Short.MAX_VALUE)
         );
 
         vtnReservarAlumnos.setText("Clases");
@@ -115,6 +116,14 @@ public class AlumnosUI extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu5);
 
+        Cerrar.setText("Cerrar Sesion");
+        Cerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CerrarMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(Cerrar);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -122,18 +131,20 @@ public class AlumnosUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jDesktopPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jDesktopPane1))
+                .addComponent(jDesktopPane1)
+                .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmiReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiReservarActionPerformed
@@ -169,6 +180,11 @@ public class AlumnosUI extends javax.swing.JFrame {
        
     }//GEN-LAST:event_vtnActualizarAlumnosActionPerformed
 
+    private void CerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerrarMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_CerrarMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -195,6 +211,7 @@ public class AlumnosUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu Cerrar;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;

@@ -78,6 +78,10 @@ public class PagoDirector extends javax.swing.JInternalFrame {
         jButton4.setText("jButton4");
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         jLabel1.setFont(new java.awt.Font("Segoe Script", 0, 14)); // NOI18N
         jLabel1.setText("Administrar pagos");
@@ -468,7 +472,7 @@ public class PagoDirector extends javax.swing.JInternalFrame {
     }
 
     private void mostrarProfesores() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 

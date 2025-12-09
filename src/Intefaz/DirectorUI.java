@@ -52,6 +52,7 @@ public class DirectorUI extends javax.swing.JFrame {
         jmiGestionarClases = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
         vtnGestionarAlumnos = new javax.swing.JMenuItem();
+        Cerrar = new javax.swing.JMenu();
 
         jMenu1.setText("jMenu1");
 
@@ -69,11 +70,11 @@ public class DirectorUI extends javax.swing.JFrame {
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGap(0, 694, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 277, Short.MAX_VALUE)
+            .addGap(0, 438, Short.MAX_VALUE)
         );
 
         jMenu2.setText("Pagos");
@@ -136,6 +137,14 @@ public class DirectorUI extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu8);
 
+        Cerrar.setText("Cerrar sesion");
+        Cerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CerrarMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(Cerrar);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -152,10 +161,14 @@ public class DirectorUI extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void vtnPagosDirectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vtnPagosDirectorActionPerformed
         // TODO add your handling code here:
+        PagoDirector  ventana = new PagoDirector(GC);
+        jDesktopPane1.add(ventana);
+        ventana.show();
     }//GEN-LAST:event_vtnPagosDirectorActionPerformed
 
     private void vtnSupervisarDirectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vtnSupervisarDirectorActionPerformed
@@ -187,6 +200,11 @@ public class DirectorUI extends javax.swing.JFrame {
         ventanaGestionarClase.show();
     }//GEN-LAST:event_vtnGestionarAlumnosActionPerformed
 
+    private void CerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerrarMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_CerrarMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -213,6 +231,7 @@ public class DirectorUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu Cerrar;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

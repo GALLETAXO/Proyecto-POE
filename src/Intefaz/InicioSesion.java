@@ -12,6 +12,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import controladores.Controlador_Global;
+import java.awt.Color;
+import java.awt.event.KeyEvent;
 /**
  *
  * @author junom
@@ -70,9 +72,25 @@ public class InicioSesion extends javax.swing.JFrame {
                 nombreUsuarioActionPerformed(evt);
             }
         });
+        nombreUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                nombreUsuarioKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nombreUsuarioKeyTyped(evt);
+            }
+        });
 
         contrasena.setFont(new java.awt.Font("Serif", 0, 12)); // NOI18N
         contrasena.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        contrasena.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                contrasenaKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                contrasenaKeyTyped(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Serif", 1, 12)); // NOI18N
         jLabel2.setText("Tu id:");
@@ -91,19 +109,23 @@ public class InicioSesion extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
-                .addGap(40, 40, 40))
             .addGroup(layout.createSequentialGroup()
-                .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbnIngresar)
-                    .addComponent(contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jbnIngresar)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(145, 145, 145)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,18 +134,19 @@ public class InicioSesion extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(8, 8, 8)
                 .addComponent(nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
                 .addComponent(jbnIngresar)
-                .addGap(31, 31, 31))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void nombreUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreUsuarioActionPerformed
@@ -196,6 +219,51 @@ public class InicioSesion extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "El ID debe ser un número");
     }
     }//GEN-LAST:event_jbnIngresarActionPerformed
+
+    private void nombreUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreUsuarioKeyTyped
+        // TODO add your handling code here:
+        char numero = evt.getKeyChar();
+        
+        if(nombreUsuario.getText().length() > 16)
+        {
+            evt.consume();
+        }
+        else if(!Character.isDigit(numero))
+        {
+            evt.consume();
+        }
+     
+    }//GEN-LAST:event_nombreUsuarioKeyTyped
+
+    private void nombreUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreUsuarioKeyPressed
+        // TODO add your handling code here:
+         char enter = (char) evt.getExtendedKeyCode();
+        if(enter == KeyEvent.VK_ENTER)
+        {
+            nombreUsuario.setBackground(Color.green);
+            nombreUsuario.setEditable(false);
+            contrasena.requestFocus();
+        }
+    }//GEN-LAST:event_nombreUsuarioKeyPressed
+
+    private void contrasenaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_contrasenaKeyTyped
+        // TODO add your handling code here:
+        char numero = evt.getKeyChar();
+        
+        if(nombreUsuario.getText().length() > 8)
+        {
+            evt.consume();
+        }
+    }//GEN-LAST:event_contrasenaKeyTyped
+
+    private void contrasenaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_contrasenaKeyPressed
+        // TODO add your handling code here:
+        char enter = (char) evt.getExtendedKeyCode();
+        if(enter == KeyEvent.VK_ENTER)
+        {
+            contrasena.setBackground(Color.green);
+        }
+    }//GEN-LAST:event_contrasenaKeyPressed
 
     /**
      * @param args the command line arguments
